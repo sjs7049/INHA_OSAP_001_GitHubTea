@@ -9,9 +9,9 @@ public:
     AVLTree(); // AVLTree instance에 대한 생성자
     ~AVLTree(); // AVLTree instance에 대한 소멸자
 
-    void set_root_(int); // member data root_에 대한 setter
-    void set_size_(int); // member data size_에 대한 setter
-    void set_height_(int); // member data height_에 대한 setter
+    void set_root(int); // member data root_에 대한 setter
+    void set_size(int); // member data size_에 대한 setter
+    void set_height(int); // member data height_에 대한 setter
 
     bool Empty() const; // set이 비어 있다면 1을, 아니라면 0을 return함
     int Size() const; // 현재 tree에 존재하는 node들의 개수를 출력함
