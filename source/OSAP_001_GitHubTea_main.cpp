@@ -6,8 +6,7 @@
 #include <algorithm>
 using namespace std;
 
-int main()
-{
+int main() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(nullptr);
 	cout.tie(nullptr);
@@ -44,7 +43,7 @@ int main()
 		else if (instruction == "Find") {
 			int x{ 0 };
 			cin >> x;
-			cout << avl.Depth(x) + avl.Height(x) << "\n";
+			cout << avl.Find(x) << "\n";
 		}
 		else if (instruction == "Insert") {
 			int x{ 0 };
