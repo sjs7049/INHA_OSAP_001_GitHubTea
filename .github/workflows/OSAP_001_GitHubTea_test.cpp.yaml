@@ -1,0 +1,38 @@
+name: AVL Tree google test
+
+# trigger 설정
+# main branch에 push가 되면 자동으로 action 실행
+on:
+  push:
+    branches:
+      - test
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    # 라이브러리 설치
+    - name: Install dependencies
+      run: |
+        sudo apt install libgtest-dev
+        sudo apt install cmake
+    # google test 설치
+    - name: Install Google test
+      run: |
+        git clone https://github.com/google/googletest
+        cd /usr/src/googletest
+        sudo mkdir build
+        cd build
+        cmake ..
+        make
+        sudo make install
+    - uses: actions/checkout@v2
+    # google test 빌드
+    - name: Build google test
+      run: |
+      sudo cmake -S . -B build
+      sudo cmake --build build
+    # test 실행
+    - name: Run test
+      run:  sudo  ctest --rerun-failed --output-on-failure
+      working-directory: build
