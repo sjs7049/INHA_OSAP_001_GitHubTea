@@ -31,8 +31,8 @@ jobs:
     # Step 4: Build project
     - name: Build project
       run: |
-        cmake -S . -B build
-        cmake --build build
+        sudo cmake -S . -B build
+        sudo cmake --build build
 
     # Step 5: Run tests
     - name: Run tests
