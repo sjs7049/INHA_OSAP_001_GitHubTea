@@ -37,5 +37,5 @@ jobs:
     # Step 5: Run tests
     - name: Run tests
       run: |
-        ctest --rerun-failed --output-on-failure
+        sudo ctest --rerun-failed --output-on-failure
       working-directory: build
