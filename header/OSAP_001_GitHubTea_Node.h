@@ -15,6 +15,17 @@ public:
     void set_parent_node_(Node*);
     void set_right_node_(Node*);
     void set_left_node_(Node*);
+
+	int key() const; // member data key_에 대한 getter
+	Node* left_node() const; // left child node의 주소에 대한 getter
+	Node* right_node() const; //right child node의 주소에 대한 getter
+	int height() const; // member data height_에 대한 getter
+
+	void set_key(); // member data key_에 대한 setter
+	void set_left_node(Node*); // left child node의 주소에 대한 setter
+	void set_right_node(Node*); //right child node의 주소에 대한 setter
+	void set_height(int); // member data height_에 대한 getter
+
 private:
     int key;
     int height;
