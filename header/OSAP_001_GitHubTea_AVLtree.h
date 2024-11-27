@@ -2,8 +2,7 @@
 #define AVL_TREE_OSAP_001_GITHUBTEA_AVLTREE_H_
 
 #include "OSAP_001_GitHubTea_Node.h"
-
-class AVLTree
+class AVLTree 
 {
 public:
     AVLTree(); // AVLTree instance에 대한 생성자
@@ -25,10 +24,33 @@ public:
     void Insert(int); // tree에 새로운 Node를 삽입함
     void Erase(int);  // node의 key를 입력받고, 그 node를 삭제함
 
+	AVLTree(); // AVLTree instance에 대한 생성자
+	bool Empty() const; // set이 비어 있다면 1을, 아니라면 0을 return 함.
+	int Size() const;
+	int Height() const;
+	int Height(int x) const;
+	int Depth(int key) const;
+	int Find(int key) const;
+	int MinDescendant(int x) const;
+	int MaxDescendant(int x) const;
+	int Ancestor(int key) const;
+	int Rank(int key) const;
+	void Insert(int key);
+	void Erase(int key);
+  
 private:
-    Node* root_; //root node의 주소
-    int size_; // 현재 tree에 존재하는 node들의 개수
-    int height_; // 현재 tree의 height
+	Node* root;
+	int size;
+
+	int difference(Node*) const;
+	void updateHeight(Node*);
+	Node* ll(Node*);
+	Node* rr(Node*);
+	Node* lr(Node*);
+	Node* rl(Node*);
+	Node* balance(Node*);
+	int countNodes(Node*) const;
+	Node* search(Node*, int) const;
 };
 
 #endif // !AVL_TREE_OSAP_001_GITHUBTEA_AVLTREE_H_
