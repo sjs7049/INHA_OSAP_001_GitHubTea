@@ -3,7 +3,7 @@ name: AVL Tree Google Test
 on:
   push:
     branches:
-      - test
+      - main
 
 jobs:
   build:
@@ -31,11 +31,11 @@ jobs:
     # Step 4: Build project
     - name: Build project
       run: |
-        cmake -S . -B build
-        cmake --build build
+        sudo cmake -S . -B build
+        sudo cmake --build build
 
     # Step 5: Run tests
     - name: Run tests
       run: |
-        ctest --rerun-failed --output-on-failure
+        sudo ctest --rerun-failed --output-on-failure
       working-directory: build

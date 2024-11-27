@@ -2,6 +2,7 @@
 FROM ubuntu:18.04
 
 # Google Test를 위한 dependencies 설치
+
 RUN apt-get update && apt-get install -y \
     build-essential \
     cmake \
@@ -28,6 +29,7 @@ RUN mkdir /googletest && cd /googletest && \
     make && make install && \
     rm -rf /googletest
 
+
 # 기본적으로 root 유저로 설정되기 때문에 새로운 유저 생성 및 권한 부여
 RUN useradd -m dockeruser && \
     mkdir -p /app && chown dockeruser:dockeruser /app
@@ -47,3 +49,4 @@ CMD cmake -S . -B build && \
     cmake --build build && \ 
     cd build && \
     ctest --output-on-failure
+
