@@ -1,0 +1,41 @@
+name: AVL Tree Google Test
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Check out the code
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    # Step 2: Install dependencies
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libgtest-dev cmake build-essential
+
+    # Step 3: Install Google Test
+    - name: Build and install Google Test
+      run: |
+        cd /usr/src/googletest
+        sudo cmake .
+        sudo make
+        sudo make install
+
+    # Step 4: Build project
+    - name: Build project
+      run: |
+        sudo cmake -S . -B build
+        sudo cmake --build build
+
+    # Step 5: Run tests
+    - name: Run tests
+      run: |
+        sudo ctest --rerun-failed --output-on-failure
+      working-directory: build
