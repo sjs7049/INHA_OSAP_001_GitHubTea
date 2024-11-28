@@ -35,6 +35,7 @@ public:
     int Rank(int) const; // node의 key를 입력받고, 그 node의 rank를 출력함
     void Insert(int); // tree에 새로운 Node를 삽입함
     void Erase(int);  // node의 key를 입력받고, 그 node를 삭제함
+    int Find(int key) const; // node의 key를 입력받고, 찾음
 
 private:
 	Node* root;
