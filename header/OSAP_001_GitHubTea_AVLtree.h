@@ -17,26 +17,19 @@
 class AVLTree 
 {
 public:
-    AVLTree(); // AVLTree instance에 대한 생성자
-    ~AVLTree(); // AVLTree instance에 대한 소멸자
-
-    void set_root(int key); // member data root_에 대한 setter
-    void set_size(int size); // member data size_에 대한 setter
-    void set_height(int height); // member data height_에 대한 setter
-
-    bool Empty() const; // set이 비어 있다면 1을, 아니라면 0을 return함
-    int Size() const; // 현재 tree에 존재하는 node들의 개수를 출력함
-    int Height() const; // 전체 tree의 height를 return함
-    int Height(int key) const; // node의 key를 입력받고, 그 node의 높이를 출력함
-    int Depth(int key) const; // node의 key를 입력받고, 그 node의 깊이를 출력함
-    int Ancestor(int key) const; // node의 key를 입력받고, 그 node의 Ancestors들의 key의 합을 return함
-    int MinDescendant(int key) const; // node의 key를 입력받고, 그 node의 Descendant들 중 가장 작은 key를 return함
-    int MaxDescendant(int key) const; // node의 key를 입력받고, 그 node의 Descendant들 중 가장 큰 key를 return함
-    int Rank(int key) const; // node의 key를 입력받고, 그 node의 rank를 출력함
-    void Insert(int key); // tree에 새로운 Node를 삽입함
-    void Erase(int key);  // node의 key를 입력받고, 그 node를 삭제함
-    int Find(int key) const; // node의 key를 입력받고, 찾음
-
+	AVLTree(); // AVLTree instance에 대한 생성자
+	bool Empty() const; // set이 비어 있다면 1을, 아니라면 0을 return 함.
+	int Size() const;
+	int Height() const;
+	int Height(int x) const;
+	int Depth(int key) const;
+	int Find(int key) const;
+	int MinDescendant(int x) const;
+	int MaxDescendant(int x) const;
+	int Ancestor(int key) const;
+	int Rank(int key) const;
+	void Insert(int key);
+	void Erase(int key);
 private:
 	Node* root;
 	int size;
