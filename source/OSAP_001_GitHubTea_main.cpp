@@ -1,3 +1,15 @@
+/*
+   File Name: FileName.cpp
+   Copyright (c) 2024 GitHubTea
+
+   This software is distributed under the MIT License.
+   For more details on the MIT License, please refer to the LICENSE file in this project.
+   This software is provided "as is," without any warranty of any kind.
+
+   Author: GitHubTea
+   Date: 2024-11-28
+*/ 
+
 #include "../header/OSAP_001_GitHubTea_Node.h"
 #include "../header/OSAP_001_GitHubTea_AVLtree.h"
 #include "./OSAP_001_GitHubTea_Node.cpp"
