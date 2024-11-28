@@ -1,3 +1,15 @@
+###############################################################################################
+#   File Name: ./clang-format                                                                 #
+#   Copyright (c) 2024 GitHubTea                                                              #
+#                                                                                             #
+#   This software is distributed under the MIT License.                                       #
+#   For more details on the MIT License, please refer to the LICENSE file in this project.    #
+#   This software is provided "as is," without any warranty of any kind.                      #
+#                                                                                             #
+#   Author: GitHubTea                                                                         #
+#   Date: 2024-11-28                                                                          #
+###############################################################################################
+
 # 실 개발 프로젝트를 위해서는 더 많은 내용들과 예외 사항들을 다루고 있는 스타일 가이드 
 # (예: 구글 C++ 스타일 가이드) 사용을 적극 권장함.
 # CSE3210 style guide + Google c++ style guide에 대한 .clang-format
