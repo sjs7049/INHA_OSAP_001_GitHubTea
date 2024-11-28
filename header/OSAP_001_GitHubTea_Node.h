@@ -18,11 +18,11 @@ public:
 	Node(int key); // Node class의 생성자. 매개변수로 key를 받음
 	~Node() {}; // Node class의 소멸자. 
 
-	int key() const; // member data key_에 대한 getter
-    int height_() const; // member data height_에 대한 getter
-	Node* left_node() const; // left child node의 주소에 대한 getter
-	Node* right_node() const; //right child node의 주소에 대한 getter
-	Node* parent_node_() const; // parent node의 주소에 대한 getter
+    int get_key() const; // key_에 대한 getter
+    int get_height() const; // height_에 대한 getter
+	Node* get_left_node() const; // left child node 주소 getter
+	Node* get_right_node() const; // right child node 주소 getter
+	Node* get_parent_node() const; // parent node 주소 getter
 
 	void set_key(); // member data key_에 대한 setter
     void set_height(int); // member data height_에 대한 getter
