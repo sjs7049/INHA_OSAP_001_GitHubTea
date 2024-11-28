@@ -1,0 +1,25 @@
+# 실 개발 프로젝트를 위해서는 더 많은 내용들과 예외 사항들을 다루고 있는 스타일 가이드 
+# (예: 구글 C++ 스타일 가이드) 사용을 적극 권장함.
+# CSE3210 style guide + Google c++ style guide에 대한 .clang-format
+
+---
+Language: Cpp # 언어 설정 (C++ 코드에 적용) (Google)
+BasedOnStyle: Google # Google 스타일을 기본으로 사용 (Google)
+IndentWidth: 2 # 들여쓰기 폭을 2 스페이스로 설정 (CSE3210 스타일 준수)
+ColumnLimit: 80 # 한 줄 최대 길이를 80자로 제한 (CSE3210 스타일 준수)
+UseTab: Never # 들여쓰기에 탭 대신 스페이스 사용 (CSE3210 스타일 준수)
+BreakBeforeBraces: Attach # 중괄호를 같은 줄에 배치 (Google)
+AllowShortFunctionsOnASingleLine: InlineOnly # 짧은 함수는 한 줄에 작성 (Google)
+IncludeBlocks: Regroup # `#include` 헤더를 블록으로 묶어서 정렬 (Google)
+SortIncludes: true # `#include` 헤더를 알파벳 순서로 정렬 (CSE3210 스타일 준수)
+NamespaceIndentation: None # 네임스페이스 내부 들여쓰기 금지 (CSE3210 스타일 준수)
+AccessModifierOffset: -2 # 접근 제어자(public, private 등) 들여쓰기 비활성화 (Google)
+AlignTrailingComments: true # 줄 끝 주석을 정렬하여 가독성 향상 (Google)
+SpacesBeforeTrailingComments: 1 # 줄 끝 주석 전에 한 칸의 스페이스 추가 (Google)
+KeepEmptyLinesAtTheStartOfBlocks: false # 블록 시작 부분의 빈 줄 제거 (Google)
+AlwaysBreakAfterReturnType: None # 반환 타입과 함수 이름을 같은 줄에 유지 (Google)
+SpaceBeforeParens: ControlStatements # 제어문 (if, while, for)에서 괄호 앞에 스페이스 삽입 (Google)
+IndentPPDirectives: None # 전처리기 지시문 (#define 등) 들여쓰기 비활성화 (Google)
+ConstructorInitializerIndentWidth: 2 # 생성자 초기화 리스트의 들여쓰기 폭을 2로 설정 (Google)
+PointerAlignment: Left # 포인터와 참조(&)를 변수 이름 왼쪽에 배치 (Google)
+---
