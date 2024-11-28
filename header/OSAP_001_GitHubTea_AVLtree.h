@@ -17,20 +17,6 @@
 class AVLTree 
 {
 public:
-	AVLTree(); // AVLTree instance에 대한 생성자
-	bool Empty() const; // set이 비어 있다면 1을, 아니라면 0을 return 함.
-	int Size() const;
-	int Height() const;
-	int Height(int x) const;
-	int Depth(int key) const;
-	int Find(int key) const;
-	int MinDescendant(int x) const;
-	int MaxDescendant(int x) const;
-	int Ancestor(int key) const;
-	int Rank(int key) const;
-	void Insert(int key);
-	void Erase(int key);
-
     AVLTree(); // AVLTree instance에 대한 생성자
     ~AVLTree(); // AVLTree instance에 대한 소멸자
 
