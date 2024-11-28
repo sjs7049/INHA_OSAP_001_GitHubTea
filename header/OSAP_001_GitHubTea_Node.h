@@ -1,5 +1,5 @@
-/*
-   File Name: FileName.cpp
+/****************************************************************************************
+   File Name: OSAP_001_GitHubTea_Node.h
    Copyright (c) 2024 GitHubTea
 
    This software is distributed under the MIT License.
@@ -8,7 +8,7 @@
 
    Author: GitHubTea
    Date: 2024-11-28
-*/ 
+*****************************************************************************************/
 
 #ifndef AVL_TREE_OSAP_001_GITHUBTEA_NODE_H_
 #define AVL_TREE_OSAP_001_GITHUBTEA_NODE_H_
