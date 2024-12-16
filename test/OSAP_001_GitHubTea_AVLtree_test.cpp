@@ -35,7 +35,7 @@ TEST(AVLTree_test, insert)
 }
 
 // AVLTree class를 test하기 위한 fixture
-class AVLTreeTestFixture : public ::testing::Test {
+class AVLTreeTestFixture : public ::testing::TestWithParam<int> {
 public:
     AVLTreeTestFixture();
     virtual ~AVLTreeTestFixture();
@@ -46,8 +46,15 @@ protected:
     AVLTree avl_tree_;
     AVLTree empty_avl_tree_;
     private:
-    //   FRIEND_TEST(AVLTreeTestFixture, DifferenceMethodTest);
 };
+
+INSTANTIATE_TEST_CASE_P(
+    AVLTreetest,
+    AVLTreeTestFixture,
+    ::testing::Values(
+        1, 100241, 50012, 234191, 300000, 154201
+    )
+);
 
 // Fixture class의 기본 생성자
 AVLTreeTestFixture::AVLTreeTestFixture() {}
@@ -241,10 +248,11 @@ TEST_F(AVLTreeTestFixture, IsRootMethodTest)
 }
 
 //isExist() 함수에 대한 test 수행
-TEST_F(AVLTreeTestFixture, IsExistMethodTest)
+TEST_P(AVLTreeTestFixture, IsExistMethodTest)
 {
-    EXPECT_EQ(avl_tree_.isExist(1), 1);
-    EXPECT_EQ(avl_tree_.isExist(123422), 0);
+    int key = GetParam();
+    EXPECT_TRUE(avl_tree_.isExist(key)); //삽입된 key 전체에 대해서 true
+    EXPECT_FALSE(avl_tree_.isExist(123422)); //해당 키가 없을 경우 false
 }
 
 //Find() 함수에 대한 test 수행
