@@ -13,7 +13,7 @@
 #ifndef AVL_TREE_OSAP_001_GITHUBTEA_AVLTREE_H_
 #define AVL_TREE_OSAP_001_GITHUBTEA_AVLTREE_H_
 
-#include "./OSAP_001_GitHubTea_Node.h";
+#include "../header/OSAP_001_GitHubTea_Node.h";
 
 class AVLTree {
 private:
@@ -31,6 +31,7 @@ private:
   Node* search(Node* curNode, int key);
   int findMin(Node* curNode);
   int findMax(Node* curNode);
+
 public:
   AVLTree();
   bool isRoot(int key);
