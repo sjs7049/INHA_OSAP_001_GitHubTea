@@ -13,36 +13,41 @@
 #ifndef AVL_TREE_OSAP_001_GITHUBTEA_AVLTREE_H_
 #define AVL_TREE_OSAP_001_GITHUBTEA_AVLTREE_H_
 
-#include "OSAP_001_GitHubTea_Node.h"
-class AVLTree 
-{
-public:
-	AVLTree(); // AVLTree instance에 대한 생성자
-	bool Empty() const; // set이 비어 있다면 1을, 아니라면 0을 return 함.
-	int Size() const;
-	int Height() const;
-	int Height(int x) const;
-	int Depth(int key) const;
-	int Find(int key) const;
-	int MinDescendant(int x) const;
-	int MaxDescendant(int x) const;
-	int Ancestor(int key) const;
-	int Rank(int key) const;
-	void Insert(int key);
-	void Erase(int key);
-private:
-	Node* root;
-	int size;
+#include "../header/OSAP_001_GitHubTea_Node.h";
 
-	int difference(Node*) const;
-	void updateHeight(Node*);
-	Node* ll(Node*);
-	Node* rr(Node*);
-	Node* lr(Node*);
-	Node* rl(Node*);
-	Node* balance(Node*);
-	int countNodes(Node*) const;
-	Node* search(Node*, int) const;
+class AVLTree {
+private:
+  Node* root;
+  int size;
+
+  int difference(Node*);
+  void updateHeight(Node*);
+  void updateSubtreeSize(Node*);
+  Node* ll(Node* parent);
+  Node* rr(Node* parent);
+  Node* lr(Node* parent);
+  Node* rl(Node* parent);
+  Node* balance(Node* curNode);
+  Node* search(Node* curNode, int key);
+  int findMin(Node* curNode);
+  int findMax(Node* curNode);
+
+public:
+  AVLTree();
+  bool isRoot(int key);
+  bool isExist(int key);
+  bool Empty();
+  int Size();
+  int Height();
+  int Height(int x);
+  int Depth(int key);
+  int Find(int key);
+  int MinDescendant(int x);
+  int MaxDescendant(int x);
+  int Ancestor(int key);
+  void Insert(int key);
+  int Rank(int key);
+  void Erase(int key);
 };
 
 #endif // !AVL_TREE_OSAP_001_GITHUBTEA_AVLTREE_H_
