@@ -15,28 +15,24 @@
 
 class Node {
 public:
-  Node();
-  Node(int key);
-  int key_() const;
-  int height_() const;
-  int subtreeSize_() const;
-  Node* left_node_() const;
-  Node* right_node_() const;
-  Node* parent_node_() const;
-  void key_set(int);
-  void height_set(int);
-  void subtreeSize_set(int);
-  void parent_node_set(Node*);
-  void right_node_set(Node*);
-  void left_node_set(Node*);
+    Node(int key);
+    int key_() const;
+    int height_() const;
+    Node* left_node_() const;
+    Node* right_node_() const;
+    Node* parent_node_() const;
 
+    void set_key_(int);
+    void set_height_(int);
+    void set_parent_node_(Node*);
+    void set_right_node_(Node*);
+    void set_left_node_(Node*);
 private:
-  int key;
-  int height;
-  int subtreeSize; // 서브트리의 노드 개수를 저장하는 변수
-  Node* parent;
-  Node* left;
-  Node* right;
+    int key;
+    int height;
+    Node* parent;
+    Node* left;
+    Node* right;
 };
 
 #endif // !AVL_TREE_OSAP_001_GITHUBTEA_NODE_H_
