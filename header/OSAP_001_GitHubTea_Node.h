@@ -17,23 +17,23 @@ class Node {
 public:
   Node();
   Node(int key);
-  int key_() const;
-  int height_() const;
-  int subtreeSize_() const;
-  Node* left_node_() const;
-  Node* right_node_() const;
-  Node* parent_node_() const;
-  void key_set(int);
-  void height_set(int);
-  void subtreeSize_set(int);
-  void parent_node_set(Node*);
-  void right_node_set(Node*);
-  void left_node_set(Node*);
+  int get_key() const;
+  int get_height() const;
+  int get_subtree_size() const;
+  Node* get_left_node() const;
+  Node* get_right_node() const;
+  Node* get_parent_node() const;
+  void set_key(int);
+  void set_height(int);
+  void set_subtree_size(int);
+  void set_parent_node(Node*);
+  void set_right_node(Node*);
+  void set_left_node(Node*);
 
 private:
   int key;
   int height;
-  int subtreeSize; // 서브트리의 노드 개수를 저장하는 변수
+  int subtree_size; // 서브트리의 노드 개수를 저장하는 변수
   Node* parent;
   Node* left;
   Node* right;
