@@ -106,7 +106,7 @@ Node* AVLTree::balance(Node* curNode) {
 
   int gap = difference(curNode); // 현재 노드의 균형 인수 계산
 
-  if (gap > 1) { // 왼쪽 서브트리가 너무 큰 경우
+  if (gap > 1) { // 왼쪽 서브트리가 너무나 큰 경우
     if (difference(curNode->left_node_()) >= 0) { // LL 상황
       curNode = ll(curNode);
     } else { // LR 상황

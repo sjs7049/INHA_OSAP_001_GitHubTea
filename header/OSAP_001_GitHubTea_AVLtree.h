@@ -31,7 +31,6 @@ private:
   Node* search(Node* curNode, int key);
   int findMin(Node* curNode);
   int findMax(Node* curNode);
-
 public:
   AVLTree();
   bool isRoot(int key);
