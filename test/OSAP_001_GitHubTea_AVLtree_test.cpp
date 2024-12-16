@@ -7,8 +7,9 @@
    This software is provided "as is," without any warranty of any kind.
 
    Author: GitHubTea
-   Date: 2024-11-28
+   Date: 2024-12-15
 *****************************************************************************************/
+
 
 #define private public
 #include "header/OSAP_001_GitHubTea_AVLTree.h"
@@ -30,8 +31,26 @@ TEST(AVLTree_test, Contructor)
 TEST(AVLTree_test, insert)
 {
     AVLTree avl;
-    avl.Insert(3);            // tree에 node가 insert되어야만 앞으로의 코드가 의미 있음. 따라서 미리 test 진행
+    avl.Insert(3);            // tree에 Node가 insert되어야만 앞으로의 코드가 의미 있음. 따라서 미리 test 진행
     ASSERT_EQ(avl.Size(), 1); // insert method가 올바르게 동작하지 않는다면 즉시 test 종료
+}
+
+// 소멸자 테스트
+TEST(AVLTree_test, DestructorTest) {
+    AVLTree* avl_tree = new AVLTree(); // AVLTree를 동적 할당
+
+    // 트리에 여러 키를 삽입
+    avl_tree->Insert(10);
+    avl_tree->Insert(20);
+    avl_tree->Insert(30);
+    avl_tree->Insert(40);
+    avl_tree->Insert(50);
+
+    // AVLTree 삭제
+    delete avl_tree;
+
+    // 메모리 해제 및 리소스 정리가 성공적으로 완료되면 테스트 통과
+    SUCCEED();
 }
 
 // AVLTree class를 test하기 위한 fixture
@@ -105,8 +124,8 @@ TEST_F(AVLTreeTestFixture, HeightMethodTest)
 {
     EXPECT_EQ(avl_tree_.Height(), 3); // 테스트 키들에 대해서, 전체 height는 3이 되어야 함
     EXPECT_EQ(avl_tree_.Height(50012), 2);
-    EXPECT_EQ(avl_tree_.Height(154201), 1); //root node에 대한 test
-    EXPECT_EQ(avl_tree_.Height(5093), 0); // 해당 key를 가진 node가 없을 경우 0을 return해야 함
+    EXPECT_EQ(avl_tree_.Height(154201), 1); //root Node에 대한 test
+    EXPECT_EQ(avl_tree_.Height(5093), 0); // 해당 key를 가진 Node가 없을 경우 0을 return해야 함
     EXPECT_EQ(empty_avl_tree_.Height(), -1); // tree가 비어 있을 경우 -1을 return해야 함
 }
 
@@ -114,14 +133,14 @@ TEST_F(AVLTreeTestFixture, HeightMethodTest)
 TEST_F(AVLTreeTestFixture, DepthMethodTest)
 {
     EXPECT_EQ(avl_tree_.Depth(1), 2);
-    EXPECT_EQ(avl_tree_.Depth(23094), 0); // 해당 key를 가진 node가 없을 경우 0을 return해야 함
+    EXPECT_EQ(avl_tree_.Depth(23094), 0); // 해당 key를 가진 Node가 없을 경우 0을 return해야 함
     EXPECT_EQ(empty_avl_tree_.Depth(23094), 0); //tree가 비어 있을 경우에 대한 test
 }
 
 // Ancestor() 함수에 대한 test 수행
 TEST_F(AVLTreeTestFixture, AncestorMethodTest)
 {
-    EXPECT_EQ(avl_tree_.Ancestor(154201), 334432); //root node에 대한 test
+    EXPECT_EQ(avl_tree_.Ancestor(154201), 334432); //root Node에 대한 test
     EXPECT_EQ(avl_tree_.Ancestor(234191), 100241); //1개의 ancestor를 가질 경우에 대한 test
     EXPECT_EQ(avl_tree_.Ancestor(100241), 0); //2개 이상의 ancestor를 가질 경우에 대한 test
 }
@@ -131,7 +150,7 @@ TEST_F(AVLTreeTestFixture, MinDescendantMethodTest)
 {
     EXPECT_EQ(avl_tree_.MinDescendant(154201), 154201);
     EXPECT_EQ(avl_tree_.MinDescendant(154201), 154201);
-    EXPECT_EQ(avl_tree_.MinDescendant(1), 1); //leaf node일 경우 자기 자신을 return 
+    EXPECT_EQ(avl_tree_.MinDescendant(1), 1); //leaf Node일 경우 자기 자신을 return 
 }
 
 // MaxDescendant() 함수에 대한 test 수행
@@ -139,7 +158,7 @@ TEST_F(AVLTreeTestFixture, MaxDescendantMethodTest)
 {
     EXPECT_EQ(avl_tree_.MaxDescendant(154201), 154201);
     EXPECT_EQ(avl_tree_.MaxDescendant(234191), 300000);
-    EXPECT_EQ(avl_tree_.MaxDescendant(1), 1); //leaf node일 경우 자기 자신을 return
+    EXPECT_EQ(avl_tree_.MaxDescendant(1), 1); //leaf Node일 경우 자기 자신을 return
 }
 
 // Rank() 함수에 대한 test 수행
@@ -147,17 +166,17 @@ TEST_F(AVLTreeTestFixture, RankMethodTest)
 {
     EXPECT_EQ(avl_tree_.Rank(1), 1); // rank가 가장 높은 경우
     EXPECT_EQ(avl_tree_.Rank(300000), 6); // rank가 가장 낮은 경우
-    EXPECT_EQ(avl_tree_.Rank(300032), 0); // 존재하지 않는 node 
+    EXPECT_EQ(avl_tree_.Rank(300032), 0); // 존재하지 않는 Node 
     EXPECT_EQ(empty_avl_tree_.Rank(1), 0); // tree가 비어있을 경우
 }
 
 // Erase() 함수에 대한 test 수행
 TEST_F(AVLTreeTestFixture, EraseMethodTest)
 {
-    EXPECT_EQ(avl_tree_.Size(), 6); // node의 개수가 6개인 상태로부터 시작
-    avl_tree_.Erase(1); // key가 1인 node를 삭제
+    EXPECT_EQ(avl_tree_.Size(), 6); // Node의 개수가 6개인 상태로부터 시작
+    avl_tree_.Erase(1); // key가 1인 Node를 삭제
     EXPECT_EQ(avl_tree_.Size(), 5); // tree의 size가 5가 되어야 함
-    EXPECT_EQ(avl_tree_.Height(1), 0); // key가 1인 node를 tree에서 찾을 수 없어야 함
+    EXPECT_EQ(avl_tree_.Height(1), 0); // key가 1인 Node를 tree에서 찾을 수 없어야 함
 }
 
 //dirrerence() 함수에 대한 test 수행
@@ -169,32 +188,32 @@ TEST_F(AVLTreeTestFixture, DifferenceMethodTest) {
 // updateHeight() 함수에 대한 test 수행
 TEST_F(AVLTreeTestFixture, UpdateHeightMethodTest)
 {
-    node* test_node = avl_tree_.search(avl_tree_.root, 50012);
-    avl_tree_.updateHeight(test_node);  // 이 함수가 정상적으로 작동해야 함
-    EXPECT_EQ(test_node->height, 2); // 예상되는 높이를 확인
+    Node* test_Node = avl_tree_.search(avl_tree_.root, 50012);
+    avl_tree_.updateHeight(test_Node);  // 이 함수가 정상적으로 작동해야 함
+    EXPECT_EQ(test_Node->height, 2); // 예상되는 높이를 확인
 }
 
 // updateSubtreeSize() 함수에 대한 test 수행
 TEST_F(AVLTreeTestFixture, UpdateSubtreeSizeMethodTest)
 {
-    node* test_node = avl_tree_.search(avl_tree_.root, 50012);
-    avl_tree_.updateSubtreeSize(test_node);  // 하위 트리 크기가 갱신되어야 함
-    EXPECT_EQ(test_node->subtreeSize, 2); // 예상되는 서브트리 크기
+    Node* test_Node = avl_tree_.search(avl_tree_.root, 50012);
+    avl_tree_.updateSubtreeSize(test_Node);  // 하위 트리 크기가 갱신되어야 함
+    EXPECT_EQ(test_Node->subtreeSize, 2); // 예상되는 서브트리 크기
 }
 
 // ll() 함수에 대한 test 수행
 TEST_F(AVLTreeTestFixture, LLMethodTest)
 {
-    node* parent = avl_tree_.search(avl_tree_.root, 50012);
-    node* new_parent = avl_tree_.ll(parent);  // 왼쪽-왼쪽 회전
+    Node* parent = avl_tree_.search(avl_tree_.root, 50012);
+    Node* new_parent = avl_tree_.ll(parent);  // 왼쪽-왼쪽 회전
     EXPECT_EQ(new_parent->key, 1);  // 회전 후 부모 노드가 변경되어야 함
 }
 
 // rr() 함수에 대한 test 수행
 TEST_F(AVLTreeTestFixture, RRMethodTest)
 {
-    node* parent = avl_tree_.search(avl_tree_.root, 234191);
-    node* new_parent = avl_tree_.rr(parent);  // 오른쪽-오른쪽 회전
+    Node* parent = avl_tree_.search(avl_tree_.root, 234191);
+    Node* new_parent = avl_tree_.rr(parent);  // 오른쪽-오른쪽 회전
     EXPECT_EQ(new_parent->key, 300000);  // 회전 후 부모 노드가 변경되어야 함
 }
 
@@ -207,23 +226,23 @@ TEST_F(AVLTreeTestFixture, BalanceMethodTest)
     int initial_balance = avl_tree_.difference(avl_tree_.root);  // 불균형 트리일 경우 1보다 크거나 -1보다 작음
     EXPECT_NE(initial_balance, 0);  // 균형 잡히지 않은 트리여야 하므로, 0이 아니어야 함
 
-    node* unbalanced_node = avl_tree_.search(avl_tree_.root, 50012);
-    node* balanced_node = avl_tree_.balance(unbalanced_node);
+    Node* unbalanced_Node = avl_tree_.search(avl_tree_.root, 50012);
+    Node* balanced_Node = avl_tree_.balance(unbalanced_Node);
     int final_balance = avl_tree_.difference(avl_tree_.root);
     EXPECT_EQ(final_balance, -1); 
 
-    EXPECT_NE(balanced_node, nullptr);  // 균형 작업 후 null이 아니어야 함
+    EXPECT_NE(balanced_Node, nullptr);  // 균형 작업 후 null이 아니어야 함
 }
 
 
 // search() 함수에 대한 test 수행
 TEST_F(AVLTreeTestFixture, SearchMethodTest)
 {
-    node* found_node = avl_tree_.search(avl_tree_.root, 50012);
-    EXPECT_EQ(found_node->key, 50012);  // 찾은 노드가 올바른 key를 가지고 있어야 함
+    Node* found_Node = avl_tree_.search(avl_tree_.root, 50012);
+    EXPECT_EQ(found_Node->key, 50012);  // 찾은 노드가 올바른 key를 가지고 있어야 함
 
-    node* not_found_node = avl_tree_.search(avl_tree_.root, 999999);  // 존재하지 않는 key
-    EXPECT_EQ(not_found_node, nullptr);  // 찾을 수 없는 노드는 nullptr을 반환해야 함
+    Node* not_found_Node = avl_tree_.search(avl_tree_.root, 999999);  // 존재하지 않는 key
+    EXPECT_EQ(not_found_Node, nullptr);  // 찾을 수 없는 노드는 nullptr을 반환해야 함
 }
 
 // findMin() 함수에 대한 test 수행

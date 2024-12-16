@@ -15,28 +15,27 @@
 
 class Node {
 public:
-  Node();
-  Node(int key);
-  int get_key() const;
-  int get_height() const;
-  int get_subtree_size() const;
-  Node* get_left_node() const;
-  Node* get_right_node() const;
-  Node* get_parent_node() const;
-  void set_key(int);
-  void set_height(int);
-  void set_subtree_size(int);
-  void set_parent_node(Node*);
-  void set_right_node(Node*);
-  void set_left_node(Node*);
-
+	Node();
+	Node(int key);
+   int key_() const;
+   int height_() const;
+   int subtreeSize_() const;
+   Node* left_node_() const;
+   Node* right_node_() const;
+   Node* parent_node_() const;
+   void key_set(int);
+   void height_set(int);
+   void subtreeSize_set(int);
+   void parent_node_set(Node*);
+   void right_node_set(Node*);
+   void left_node_set(Node*);
 private:
-  int key;
-  int height;
-  int subtree_size; // ¼­ºêÆ®¸®ÀÇ ³ëµå °³¼ö¸¦ ÀúÀåÇÏ´Â º¯¼ö
-  Node* parent;
-  Node* left;
-  Node* right;
+   int key;
+   int height;
+   int subtreeSize;  // ì„œë¸ŒíŠ¸ë¦¬ì˜ ë…¸ë“œ ê°œìˆ˜ë¥¼ ì €ì¥í•˜ëŠ” ë³€ìˆ˜
+   Node* parent;
+   Node* left;
+   Node* right;
 };
 
-#endif // !AVL_TREE_OSAP_001_GITHUBTEA_NODE_H_
+#endif
