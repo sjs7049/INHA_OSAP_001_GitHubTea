@@ -10,48 +10,69 @@
    Date: 2024-11-28
 *****************************************************************************************/
 
-#include "../header/OSAP_001_GitHubTea_Node.h"
+#include "../header/OSAP_001_GitHubTea_Node.h";
 
-Node::Node(int _key)
-    : key{ _key }, parent{ nullptr }, left{ nullptr }
-    , right{ nullptr }, height{ 1 } {}
+Node::Node()
+  : key{0},
+    parent{nullptr},
+    left{nullptr},
+    right{nullptr},
+    height{1},
+    subtreeSize{1} {
+}
+Node::Node(int key)
+  : key{key},
+    parent{nullptr},
+    left{nullptr},
+    right{nullptr},
+    height{1},
+    subtreeSize{1} {
+}
 
 int Node::key_() const {
-    return key;
+  return key;
 }
 
 int Node::height_() const {
-    return height;
+  return height;
 }
 
-Node* Node::parent_node_() const {
-    return parent;
+int Node::subtreeSize_() const {
+  return subtreeSize;
 }
 
 Node* Node::left_node_() const {
-    return left;
+  return left;
 }
 
 Node* Node::right_node_() const {
-    return right;
+  return right;
 }
 
-void Node::set_key_(int _key) {
-    key = _key;
+Node* Node::parent_node_() const {
+  return parent;
 }
 
-void Node::set_height_(int _height) {
-    height = _height;
+void Node::key_set(int key) {
+  this->key = key;
 }
 
-void Node::set_parent_node_(Node* parNode) {
-    parent = parNode;
+void Node::height_set(int height) {
+  this->height = height;
 }
 
-void Node::set_right_node_(Node* rNode) {
-    right = rNode;
+void Node::parent_node_set(Node* parent) {
+  this->parent = parent;
 }
 
-void Node::set_left_node_(Node* lNode) {
-    left = lNode;
+void Node::right_node_set(Node* right) {
+  this->right = right;
+}
+
+void Node::left_node_set(Node* left) {
+  this->left = left;
+}
+
+void Node::subtreeSize_set(int subtreeSize) {
+  this->subtreeSize = subtreeSize;
 }

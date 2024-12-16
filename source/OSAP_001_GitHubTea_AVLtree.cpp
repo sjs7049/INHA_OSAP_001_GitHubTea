@@ -3,339 +3,336 @@
    Copyright (c) 2024 GitHubTea
 
    This software is distributed under the MIT License.
-   For more details on the MIT License, please refer to the LICENSE file in this project.
-   This software is provided "as is," without any warranty of any kind.
+   For more details on the MIT License, please refer to the LICENSE file in this
+project. This software is provided "as is," without any warranty of any kind.
 
    Author: GitHubTea
    Date: 2024-11-28
 *****************************************************************************************/
 
-#include "../header/OSAP_001_GitHubTea_AVLtree.h"
-#include <algorithm>
+#include "../header/OSAP_001_GitHubTea_AVLTree.h";
 
-AVLTree::AVLTree() : root{ NULL }, size{ 0 } {};
+#include <iostream>
+#include <string>
 
-bool AVLTree::Empty() const {
-    return size == 0;
+using namespace std;
+
+int AVLTree::difference(Node* temp) {
+  int leftHeight = temp->left_node_() ? temp->left_node_()->height_() : 0;
+  int rightHeight = temp->right_node_() ? temp->right_node_()->height_() : 0;
+  return (leftHeight - rightHeight);
 }
 
-int AVLTree::Size() const {
-    return size;
+void AVLTree::updateHeight(Node* n) {
+  if (n != nullptr) {
+    int leftHeight = (n->left_node_()) ? n->left_node_()->height_() : 0;
+    int rightHeight = (n->right_node_()) ? n->right_node_()->height_() : 0;
+    n->height_set(std::max(leftHeight, rightHeight) + 1);
+  }
 }
 
-int AVLTree::Height() const {
-    if (root == NULL) {
-        return -1;
-    }
-
-    return root->height_();
-}
-
-
-int AVLTree::Height(int x) const {
-    Node* curNode = search(root, x);
-    if (curNode == NULL) {
-        return -1;
-    }
-
-    return curNode->height_();
-}
-
-int AVLTree::Depth(int key) const {
-        Node * curNode = search(root, key);
-        if (curNode == NULL) {
-            return 0;
-        }
-
-        int depth = 0;
-        while (curNode != root) {
-            depth++;
-            curNode = curNode->parent_node_();
-        }
-
-        return depth;
-    }
-
-int AVLTree::Find(int key) const {
-        Node* curNode = search(root, key);
-        if (curNode == NULL) {
-            return 0;
-        }
-
-        int nodeDepth = Depth(key);
-        int nodeHeight = Height(curNode->key_());
-
-        return (nodeDepth + nodeHeight);
-}
-
-int AVLTree::MinDescendant(int x) const {
-    Node* curNode = search(root, x);
-    while (curNode->left_node_() != NULL) {
-        curNode = curNode->left_node_();
-    }
-
-    return curNode->key_();
-}
-
-int AVLTree::MaxDescendant(int x) const {
-    Node* curNode = search(root, x);
-    while (curNode->right_node_() != NULL) {
-        curNode = curNode->right_node_();
-    }
-
-    return curNode->key_();
-}
-
-int AVLTree::Ancestor(int key) const {
-    Node* curNode = search(root, key);
-    if (curNode == NULL) {
-        return -1; // set�� �����ϴ� Ʈ���� �־���. ������ �� �� ���� �� �ƹ��ų� ����.
-    }
-
-    int keySum = 0;
-
-    Node* temp = curNode->parent_node_();
-    while (temp != NULL) {
-        keySum += temp->key_();
-        temp = temp->parent_node_();
-    }
-
-    return keySum;
-}
-
-int AVLTree::Rank(int key) const {
-    Node* curNode = search(root, key);
-    if (curNode == NULL) {
-        return 0;
-    }
-
-    int rank = 1;
-    Node* temp = root;
-    while (temp != NULL) {
-        if (key < temp->key_()) {
-            temp = temp->left_node_();
-        }
-        else if (key > temp->key_()) {
-            rank += countNodes(temp->left_node_()) + 1;
-            temp = temp->right_node_();
-        }
-        else {
-            rank += countNodes(temp->left_node_());
-            break;
-        }
-    }
-    return rank;
-}
-
-void AVLTree::Insert(int key) {
-    if (search(root, key) != NULL) {
-        return;
-    }
-
-    Node* newNode = new Node(key);
-    size++;
-    if (root == NULL) {
-        root = newNode;
-        return;
-    }
-
-    Node* curNode = root;
-    Node* parNode = NULL;
-
-    while (curNode != NULL) {
-        parNode = curNode;
-        if (curNode->key_() < key) {
-            curNode = curNode->right_node_();
-        }
-        else {
-            curNode = curNode->left_node_();
-        }
-    }
-
-    newNode->set_parent_node_(parNode);
-    if (parNode->key_() < key) {
-        parNode->set_right_node_(newNode);
-    }
-    else {
-        parNode->set_left_node_(newNode);
-    }
-
-    Node* grandParNode = newNode->parent_node_() ? newNode->parent_node_()->parent_node_() : NULL;
-    while (grandParNode != NULL) {
-        updateHeight(grandParNode);
-        grandParNode = balance(grandParNode);
-        grandParNode = grandParNode->parent_node_();
-    }
-
-    while (root->parent_node_() != NULL) {
-        root = root->parent_node_();
-    }
-}
-
-void AVLTree::Erase(int key) {
-    Node* delNode = search(root, key);
-    if (delNode == NULL) {
-        return;
-    }
-
-    Node* parNode = delNode->parent_node_();
-    Node* childNode;
-
-    if (delNode->left_node_() == NULL && delNode->right_node_() == NULL) {
-        childNode = NULL;
-    }
-    else if (delNode->left_node_() == NULL && delNode->right_node_() != NULL) {
-        childNode = delNode->right_node_();
-    }
-    else if (delNode->left_node_() != NULL && delNode->right_node_() == NULL) {
-        childNode = delNode->left_node_();
-    }
-    else {
-        childNode = delNode->right_node_();
-        while (childNode->left_node_() != NULL) {
-            childNode = childNode->left_node_();
-        }
-        delNode->set_key_(childNode->key_());
-        delNode = childNode;
-        parNode = delNode->parent_node_();
-        childNode = delNode->right_node_();
-    }
-
-    if (parNode == NULL) {
-        root = childNode;
-        if (childNode != NULL) {
-            root->set_parent_node_(NULL);
-        }
-        updateHeight(root);
-    }
-    else if (delNode == parNode->left_node_()) {
-        parNode->set_left_node_(childNode);
-        if (childNode != NULL) {
-            childNode->set_parent_node_(parNode);
-        }
-    }
-    else {
-        parNode->set_right_node_(childNode);
-        if (childNode != NULL) {
-            childNode->set_parent_node_(parNode);
-        }
-    }
-
-    delete delNode;
-
-    while (parNode != NULL) {
-        updateHeight(parNode);
-        parNode = balance(parNode);
-        parNode = parNode->parent_node_();
-    }
-    if (root && root->parent_node_() != NULL) {
-        while (root->parent_node_() != NULL) {
-            root = root->parent_node_();
-        }
-    }
-}
-
-
-// private
-int AVLTree::difference(Node* temp) const {
-    int leftHeight = temp->left_node_() ? temp->left_node_()->height_() : 0;
-    int rightHeight = temp->right_node_() ? temp->right_node_()->height_() : 0;
-
-    return (leftHeight - rightHeight);
-}
-
-void AVLTree::updateHeight(Node* curNode) {
-    int leftHeight = (curNode->left_node_()) ? curNode->left_node_()->height_() : 0;
-    int rightHeight = (curNode->right_node_()) ? curNode->right_node_()->height_() : 0;
-
-    curNode->set_height_(std::max(leftHeight, rightHeight) + 1);
+void AVLTree::updateSubtreeSize(Node* n) {
+  if (n != nullptr) {
+    int leftSize = (n->left_node_()) ? n->left_node_()->subtreeSize_() : 0;
+    int rightSize = (n->right_node_()) ? n->right_node_()->subtreeSize_() : 0;
+    n->subtreeSize_set(leftSize + rightSize + 1);
+  }
 }
 
 Node* AVLTree::ll(Node* parent) {
-    Node* temp = parent->left_node_();
-    parent->set_left_node_(temp->right_node_());
-    if (temp->right_node_() != NULL) {
-        temp->right_node_()->set_parent_node_(parent);
+  Node* temp = parent->left_node_();
+  parent->left_node_set(temp->right_node_());
+  if (temp->right_node_() != nullptr) temp->right_node_()->parent_node_set(parent);
+  temp->right_node_set(parent);
+  temp->parent_node_set(parent->parent_node_());
+
+  if (parent->parent_node_()) {
+    if (parent->parent_node_()->left_node_() == parent) {
+      parent->parent_node_()->left_node_set(temp);
+    } else {
+      parent->parent_node_()->right_node_set(temp);
     }
-    temp->set_right_node_(parent);
-    temp->set_parent_node_(parent->parent_node_());
-    parent->set_parent_node_(temp);
+  }
+  parent->parent_node_set(temp);
 
-    updateHeight(parent);
-    updateHeight(temp);
+  updateHeight(parent);
+  updateHeight(temp);
+  updateSubtreeSize(parent);
+  updateSubtreeSize(temp);
 
-    return temp;
+  return temp;
 }
 
 Node* AVLTree::rr(Node* parent) {
-    Node* temp = parent->right_node_();
-    parent->set_right_node_(temp->left_node_());
-    if (temp->left_node_() != NULL) {
-        temp->left_node_()->set_parent_node_(parent);
+  Node* temp = parent->right_node_();
+  parent->right_node_set(temp->left_node_());
+  if (temp->left_node_() != nullptr) {
+    temp->left_node_()->parent_node_set(parent);
+  }
+  temp->left_node_set(parent);
+  temp->parent_node_set(parent->parent_node_());
+
+  if (parent->parent_node_()) {
+    if (parent->parent_node_()->left_node_() == parent) {
+      parent->parent_node_()->left_node_set(temp);
+    } else {
+      parent->parent_node_()->right_node_set(temp);
     }
-    temp->set_left_node_(parent);
-    temp->set_parent_node_(parent->parent_node_());
-    parent->set_parent_node_(temp);
+  }
+  parent->parent_node_set(temp);
 
-    updateHeight(parent);
-    updateHeight(temp);
+  updateHeight(parent);
+  updateHeight(temp);
+  updateSubtreeSize(parent);
+  updateSubtreeSize(temp);
 
-    return temp;
+  return temp;
 }
 
 Node* AVLTree::lr(Node* parent) {
-    parent->set_left_node_(rr(parent->left_node_()));
-
-    return ll(parent);
+  parent->left_node_set(rr(parent->left_node_()));
+  return ll(parent);
 }
 
 Node* AVLTree::rl(Node* parent) {
-    parent->set_right_node_(ll(parent->right_node_()));
-
-    return rr(parent);
+  parent->right_node_set(ll(parent->right_node_()));
+  return rr(parent);
 }
 
 Node* AVLTree::balance(Node* curNode) {
-    int gap = difference(curNode);
-    if (gap > 1) {
-        if (difference(curNode->left_node_()) >= 0) {
-            curNode = ll(curNode);
-        }
-        else {
-            curNode = lr(curNode);
-        }
-    }
-    else if (gap < -1) {
-        if (difference(curNode->right_node_()) <= 0) {
-            curNode = rr(curNode);
-        }
-        else {
-            curNode = rl(curNode);
-        }
-    }
+  if (curNode == nullptr) {
+    return nullptr;
+  }
 
-    return curNode;
+  int gap = difference(curNode); // 현재 노드의 균형 인수 계산
+
+  if (gap > 1) { // 왼쪽 서브트리가 너무 큰 경우
+    if (difference(curNode->left_node_()) >= 0) { // LL 상황
+      curNode = ll(curNode);
+    } else { // LR 상황
+      curNode = lr(curNode);
+    }
+  } else if (gap < -1) { // 오른쪽 서브트리가 너무 큰 경우
+    if (difference(curNode->right_node_()) <= 0) { // RR 상황
+      curNode = rr(curNode);
+    } else { // RL 상황
+      curNode = rl(curNode);
+    }
+  }
+
+  // 최종 높이 및 서브트리 크기 갱신
+  updateHeight(curNode);
+  updateSubtreeSize(curNode);
+  return curNode;
 }
 
-int AVLTree::countNodes(Node* curNode) const {
-    if (curNode == NULL) {
-        return 0;
+Node* AVLTree::search(Node* curNode, int key) {
+  while (curNode != nullptr && curNode->key_() != key) {
+    if (key < curNode->key_()) {
+      curNode = curNode->left_node_();
+    } else {
+      curNode = curNode->right_node_();
     }
-
-    return (1 + countNodes(curNode->left_node_()) + countNodes(curNode->right_node_()));
+  }
+  return curNode;
 }
 
-Node* AVLTree::search(Node* curNode, int key) const {
-    if (curNode == NULL) {
-        return NULL;
+int AVLTree::findMin(Node* curNode) {
+  while (curNode->left_node_() != nullptr) {
+    curNode = curNode->left_node_();
+  }
+  return curNode->key_();
+}
+
+int AVLTree::findMax(Node* curNode) {
+  while (curNode->right_node_() != nullptr) {
+    curNode = curNode->right_node_();
+  }
+  return curNode->key_();
+}
+
+AVLTree::AVLTree() {
+  root = nullptr;
+  size = 0;
+}
+
+bool AVLTree::isRoot(int key) {
+  Node* curNode = search(root, key);
+  return (curNode != nullptr && curNode->parent_node_() == nullptr);
+}
+
+bool AVLTree::isExist(int key) {
+  return (search(root, key) != nullptr ? 1 : 0);
+}
+
+bool AVLTree::Empty() {
+  return size == 0;
+}
+
+int AVLTree::Size() {
+  return size;
+}
+
+int AVLTree::Height() {
+  return root ? root->height_() : -1;
+}
+
+int AVLTree::Height(int x) {
+  Node* curNode = search(root, x);
+  return curNode ? curNode->height_() : 0;
+}
+
+int AVLTree::Depth(int key) {
+  Node* curNode = search(root, key);
+  if (curNode == nullptr) return 0;
+
+  int depth = 0;
+  while (curNode != root) {
+    depth++;
+    curNode = curNode->parent_node_();
+  }
+  return depth;
+}
+
+int AVLTree::Find(int key) {
+  Node* curNode = search(root, key);
+  if (curNode == nullptr) {
+    return 0;
+  }
+
+  int nodeDepth = Depth(key);
+  int nodeHeight = Height(curNode->key_());
+  return (nodeDepth + nodeHeight);
+}
+
+int AVLTree::MinDescendant(int x) {
+  Node* curNode = search(root, x);
+  return curNode ? findMin(curNode) : 0;
+}
+
+int AVLTree::MaxDescendant(int x) {
+  Node* curNode = search(root, x);
+  return curNode ? findMax(curNode) : 0;
+}
+
+int AVLTree::Ancestor(int key) {
+  Node* curNode = search(root, key);
+  if (curNode == nullptr) return 0;
+
+  int keySum = 0;
+  Node* temp = curNode->parent_node_();
+  while (temp != nullptr) {
+    keySum += temp->key_();
+    temp = temp->parent_node_();
+  }
+  return keySum;
+}
+
+void AVLTree::Insert(int key) {
+  if (search(root, key) != nullptr) return;
+
+  Node* newNode = new Node(key);
+  size++;
+  if (root == nullptr) {
+    root = newNode;
+    return;
+  }
+
+  Node* curNode = root;
+  Node* parNode = nullptr;
+
+  while (curNode != nullptr) {
+    parNode = curNode;
+    if (curNode->key_() < key)
+      curNode = curNode->right_node_();
+    else
+      curNode = curNode->left_node_();
+  }
+
+  newNode->parent_node_set(parNode);
+  if (parNode->key_() < key) {
+    parNode->right_node_set(newNode);
+  } else {
+    parNode->left_node_set(newNode);
+  }
+
+  curNode = newNode;
+  while (curNode != nullptr) {
+    curNode = balance(curNode);
+    if (curNode->parent_node_() == nullptr) {
+      root = curNode;
     }
-    if (curNode->key_() == key) {
-        return curNode;
+
+    curNode = curNode->parent_node_();
+  }
+}
+
+int AVLTree::Rank(int key) {
+  Node* curNode = search(root, key);
+  if (curNode == nullptr) return 0;
+
+  int rank = 1;
+  Node* temp = root;
+  while (temp != nullptr) {
+    if (key < temp->key_()) {
+      temp = temp->left_node_();
+    } else if (key > temp->key_()) {
+      rank += (temp->left_node_() ? temp->left_node_()->subtreeSize_() + 1 : 1);
+      temp = temp->right_node_();
+    } else {
+      rank += (temp->left_node_() ? temp->left_node_()->subtreeSize_() : 0);
+      break;
     }
-    else if (curNode->key_() < key) {
-        return search(curNode->right_node_(), key);
+  }
+  return rank;
+}
+
+void AVLTree::Erase(int key) {
+  Node* delNode = search(root, key);
+  if (delNode == nullptr) return;
+
+  Node* parNode = delNode->parent_node_();
+  Node* childNode;
+
+  if (delNode->left_node_() == nullptr && delNode->right_node_() == nullptr) {
+    childNode = nullptr;
+  } else if (delNode->left_node_() == nullptr) {
+    childNode = delNode->right_node_();
+  } else if (delNode->right_node_() == nullptr) {
+    childNode = delNode->left_node_();
+  } else {
+    childNode = delNode->right_node_();
+    while (childNode->left_node_() != nullptr)
+      childNode = childNode->left_node_();
+    delNode->key_set(childNode->key_());
+    delNode = childNode;
+    parNode = delNode->parent_node_();
+    childNode = delNode->right_node_();
+  }
+
+  if (parNode == nullptr)
+    root = childNode;
+  else if (delNode == parNode->left_node_()) {
+    parNode->left_node_set(childNode);
+  } else {
+    parNode->right_node_set(childNode);
+  }
+  if (childNode != nullptr) {
+    childNode->parent_node_set(parNode);
+  }
+
+  delete delNode;
+  size--;
+
+  Node* curNode = parNode;
+  while (curNode != nullptr) {
+    updateHeight(curNode);
+    updateSubtreeSize(curNode);
+    curNode = balance(curNode);
+    if (curNode->parent_node_() == nullptr) {
+      root = curNode;
     }
-    else {
-        return search(curNode->left_node_(), key);
-    }
+
+    curNode = curNode->parent_node_();
+  }
 }
