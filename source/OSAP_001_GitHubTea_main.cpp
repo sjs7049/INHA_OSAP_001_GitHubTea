@@ -25,6 +25,9 @@ int main() {
   int T = 0, Q = 0;
   cin >> T;
 
+  /*FILE* file;
+  freopen_s(&file, "output.txt", "w", stdout);*/
+
   string instruction;
   while (T--) {
     AVLTree avl;
@@ -53,7 +56,7 @@ int main() {
         int depth_height_sum = avl.Depth(x) + avl.Height(x);
         int ancestor_sum = avl.Ancestor(x);
 
-        if (avl.isExist(x) && avl.isRoot(x)) { // 루트 노드이고 존재할 경우
+        if (avl.isExist(x) && avl.isRoot(x)) { // 루트 노드일 경우
           cout << depth_height_sum << " "
                << "0\n";
         } else {
