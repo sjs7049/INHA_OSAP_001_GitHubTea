@@ -11,7 +11,7 @@
 *****************************************************************************************/
 
 #include "header/OSAP_001_GitHubTea_AVLtree_Node.h"
-#include <gtest/gtest.h>S
+#include <gtest/gtest.h>
 #include <iostream>
 using namespace testing;
 using namespace std;
