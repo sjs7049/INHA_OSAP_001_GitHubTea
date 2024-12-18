@@ -10,56 +10,76 @@
    Date: 2024-11-28
 *****************************************************************************************/
 
-#include "header/OSAP_001_GitHubTea_Node.h"
+#include "../header/OSAP_001_GitHubTea_Node.h"
 
-Node::Node() : key{ 0 }, parent{ nullptr }, left{ nullptr }, right{ nullptr }, height{ 1 }, subtreeSize{ 1 } { }
-Node::Node(int key) : key{ key }, parent{ nullptr }, left{ nullptr }, right{ nullptr }, height{ 1 }, subtreeSize{ 1 } { }
+// public method 
 
-
-int Node::key_() const {
-	return key;
+// 기본 생성자
+Node::Node()
+  : key_{0},
+    height_{1},
+    subtree_size_{1},
+    parent_{nullptr},
+    left_{nullptr},
+    right_{nullptr} {
 }
 
-int Node::height_() const {
-	return height;
+// 매개변수 생성자
+Node::Node(int key)
+  : key_{key},
+    height_{1},
+    subtree_size_{1},
+    parent_{nullptr},
+    left_{nullptr},
+    right_{nullptr} {
 }
 
-int Node::subtreeSize_() const {
-	return subtreeSize;
+// getter
+int Node::get_key() const {
+  return key_;
 }
 
-Node* Node::left_node_() const {
-	return left;
+int Node::get_height() const {
+  return height_;
 }
 
-Node* Node::right_node_() const {
-	return right;
+int Node::get_subtree_size() const {
+  return subtree_size_;
 }
 
-Node* Node::parent_node_() const {
-	return parent;
+Node* Node::get_left_node() const {
+  return left_;
 }
 
-void Node::key_set(int key) {
-	this->key = key;
+Node* Node::get_right_node() const {
+  return right_;
 }
 
-void Node::height_set(int height) {
-	this->height = height;
+Node* Node::get_parent_node() const {
+  return parent_;
 }
 
-void Node::parent_node_set(Node* parent) {
-	this->parent = parent;
+// setter
+void Node::set_key(int key) {
+  this->key_ = key;
 }
 
-void Node::right_node_set(Node* right) {
-	this->right = right;
+void Node::set_height(int height) {
+  this->height_ = height;
 }
 
-void Node::left_node_set(Node* left) {
-	this->left = left;
+void Node::set_subtree_size(int subtree_size) {
+  this->subtree_size_ = subtree_size;
 }
 
-void Node::subtreeSize_set(int subtreeSize) {
-	this->subtreeSize = subtreeSize;
+void Node::set_parent_node(Node* parent) {
+  this->parent_ = parent;
+}
+
+void Node::set_right_node(Node* right) {
+  this->right_ = right;
+}
+
+void Node::set_left_node(Node* left) {
+  this->left_ = left;
 }
