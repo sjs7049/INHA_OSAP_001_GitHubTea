@@ -19,39 +19,39 @@ using namespace std;
 // 기본 생성자에 대한 테스트
 TEST(Node_test, DefaultConstructorTest) {
     Node new_node = Node();
-    ASSERT_EQ(new_node.key_(), 0);
-    ASSERT_EQ(new_node.height_(), 1);
-    ASSERT_EQ(new_node.subtreeSize_(), 1);
-    ASSERT_EQ(new_node.left_node_(), nullptr);
-    ASSERT_EQ(new_node.right_node_(), nullptr);
-    ASSERT_EQ(new_node.parent_node_(), nullptr);
+    ASSERT_EQ(new_node.get_key(), 0);
+    ASSERT_EQ(new_node.get_height(), 1);
+    ASSERT_EQ(new_node.get_subtree_size(), 1);
+    ASSERT_EQ(new_node.get_left_node(), nullptr);
+    ASSERT_EQ(new_node.get_right_node(), nullptr);
+    ASSERT_EQ(new_node.get_parent_node(), nullptr);
 }
 
 // 파라미터 생성자에 대한 테스트
 TEST(Node_test, ParameterConstructorTest) {
     Node new_node = Node(3);
-    ASSERT_EQ(new_node.key_(), 3);
-    ASSERT_EQ(new_node.height_(), 1);
-    ASSERT_EQ(new_node.subtreeSize_(), 1);
-    ASSERT_EQ(new_node.left_node_(), nullptr);
-    ASSERT_EQ(new_node.right_node_(), nullptr);
-    ASSERT_EQ(new_node.parent_node_(), nullptr);
+    ASSERT_EQ(new_node.get_key(), 3);
+    ASSERT_EQ(new_node.get_height(), 1);
+    ASSERT_EQ(new_node.get_subtree_size(), 1);
+    ASSERT_EQ(new_node.get_left_node(), nullptr);
+    ASSERT_EQ(new_node.get_right_node(), nullptr);
+    ASSERT_EQ(new_node.get_parent_node(), nullptr);
 }
 
 // 소멸자에 대한 테스트
 TEST(Node_test, DestructorTest) {
     Node* dynamic_node = new Node(42); // Node를 동적 할당
-    dynamic_node->left_node_set(new Node(21)); // 왼쪽 자식 노드 설정
-    dynamic_node->right_node_set(new Node(84)); // 오른쪽 자식 노드 설정
+    dynamic_node->set_left_node(new Node(21)); // 왼쪽 자식 노드 설정
+    dynamic_node->set_right_node(new Node(84)); // 오른쪽 자식 노드 설정
 
     // Node의 초기 상태를 검증
-    EXPECT_EQ(dynamic_node->key_(), 42);
-    EXPECT_EQ(dynamic_node->left_node_()->key_(), 21);
-    EXPECT_EQ(dynamic_node->right_node_()->key_(), 84);
+    EXPECT_EQ(dynamic_node->get_key(), 42);
+    EXPECT_EQ(dynamic_node->get_left_node()->get_key(), 21);
+    EXPECT_EQ(dynamic_node->get_right_node()->get_key(), 84);
 
     // 자식 노드를 먼저 삭제한 후 부모 노드 삭제
-    delete dynamic_node->left_node_(); // 왼쪽 자식 노드 삭제
-    delete dynamic_node->right_node_(); // 오른쪽 자식 노드 삭제
+    delete dynamic_node->get_left_node(); // 왼쪽 자식 노드 삭제
+    delete dynamic_node->get_right_node(); // 오른쪽 자식 노드 삭제
     delete dynamic_node; // 부모 노드 삭제
 
     // 메모리 해제 및 리소스 정리가 성공적으로 완료되면 테스트 통과
@@ -81,10 +81,10 @@ void NodeTestFixture::SetUp() {
     node_ = Node(10);
     left_child_ = Node(5);
     right_child_ = Node(15);
-    node_.left_node_set(&left_child_);
-    node_.right_node_set(&right_child_);
-    left_child_.parent_node_set(&node_);
-    right_child_.parent_node_set(&node_);
+    node_.set_left_node(&left_child_);
+    node_.set_right_node(&right_child_);
+    left_child_.set_parent_node(&node_);
+    right_child_.set_parent_node(&node_);
     std::cout << "⚡ 테스트를 시작합니다. ⚡\n";
 }
 
@@ -93,77 +93,77 @@ void NodeTestFixture::TearDown() {
     std::cout << "⚡ 테스트가 종료되었습니다. ⚡\n";
 }
 
-// key_() 메서드 테스트
-TEST_F(NodeTestFixture, KeyMethodTest) {
-    EXPECT_EQ(node_.key_(), 10);
+// get_key() 메서드 테스트
+TEST_F(NodeTestFixture, GetKeyMethodTest) {
+    EXPECT_EQ(node_.get_key(), 10);
 }
 
-// height_() 메서드 테스트
-TEST_F(NodeTestFixture, HeightMethodTest) {
-    EXPECT_EQ(node_.height_(), 1);
+// get_height() 메서드 테스트
+TEST_F(NodeTestFixture, GetHeightMethodTest) {
+    EXPECT_EQ(node_.get_height(), 1);
 }
 
-// subtreeSize_() 메서드 테스트
-TEST_F(NodeTestFixture, SubtreeSizeMethodTest) {
-    EXPECT_EQ(node_.subtreeSize_(), 1);
+// get_subtree_size() 메서드 테스트
+TEST_F(NodeTestFixture, GetSubtreeSizeMethodTest) {
+    EXPECT_EQ(node_.get_subtree_size(), 1);
 }
 
-// left_node_() 메서드 테스트
-TEST_F(NodeTestFixture, LeftNodeMethodTest) {
-    EXPECT_EQ(node_.left_node_(), &left_child_);
-    EXPECT_EQ(left_child_.key_(), 5);
+// get_left_node() 메서드 테스트
+TEST_F(NodeTestFixture, GetLeftNodeMethodTest) {
+    EXPECT_EQ(node_.get_left_node(), &left_child_);
+    EXPECT_EQ(left_child_.get_key(), 5);
 }
 
-// right_node_() 메서드 테스트
-TEST_F(NodeTestFixture, RightNodeMethodTest) {
-    EXPECT_EQ(node_.right_node_(), &right_child_);
-    EXPECT_EQ(right_child_.key_(), 15);
+// get_right_node() 메서드 테스트
+TEST_F(NodeTestFixture, GetRightNodeMethodTest) {
+    EXPECT_EQ(node_.get_right_node(), &right_child_);
+    EXPECT_EQ(right_child_.get_key(), 15);
 }
 
-// parent_node_() 메서드 테스트
-TEST_F(NodeTestFixture, ParentNodeMethodTest) {
-    EXPECT_EQ(left_child_.parent_node_(), &node_);
-    EXPECT_EQ(right_child_.parent_node_(), &node_);
+// get_parent_node() 메서드 테스트
+TEST_F(NodeTestFixture, GetParentNodeMethodTest) {
+    EXPECT_EQ(left_child_.get_parent_node(), &node_);
+    EXPECT_EQ(right_child_.get_parent_node(), &node_);
 }
 
-// key_set() 메서드 테스트
-TEST_F(NodeTestFixture, KeySetMethodTest) {
-    node_.key_set(20);
-    EXPECT_EQ(node_.key_(), 20);
+// set_key() 메서드 테스트
+TEST_F(NodeTestFixture, SetKeyMethodTest) {
+    node_.set_key(20);
+    EXPECT_EQ(node_.get_key(), 20);
 }
 
-// height_set() 메서드 테스트
-TEST_F(NodeTestFixture, HeightSetMethodTest) {
-    node_.height_set(3);
-    EXPECT_EQ(node_.height_(), 3);
+// set_height() 메서드 테스트
+TEST_F(NodeTestFixture, SetHeightMethodTest) {
+    node_.set_height(3);
+    EXPECT_EQ(node_.get_height(), 3);
 }
 
-// subtreeSize_set() 메서드 테스트
-TEST_F(NodeTestFixture, SubtreeSizeSetMethodTest) {
-    node_.subtreeSize_set(5);
-    EXPECT_EQ(node_.subtreeSize_(), 5);
+// set_subtree_size() 메서드 테스트
+TEST_F(NodeTestFixture, SetSubtreeSizeMethodTest) {
+    node_.set_subtree_size(5);
+    EXPECT_EQ(node_.get_subtree_size(), 5);
 }
 
-// left_node_set() 메서드 테스트
-TEST_F(NodeTestFixture, LeftNodeSetMethodTest) {
+// set_left_node() 메서드 테스트
+TEST_F(NodeTestFixture, SetLeftNodeMethodTest) {
     Node new_left_child = Node(8);
-    node_.left_node_set(&new_left_child);
-    EXPECT_EQ(node_.left_node_(), &new_left_child);
-    EXPECT_EQ(node_.left_node_()->key_(), 8);
+    node_.set_left_node(&new_left_child);
+    EXPECT_EQ(node_.get_left_node(), &new_left_child);
+    EXPECT_EQ(node_.get_left_node()->get_key(), 8);
 }
 
-// right_node_set() 메서드 테스트
-TEST_F(NodeTestFixture, RightNodeSetMethodTest) {
+// get_right_node() 메서드 테스트
+TEST_F(NodeTestFixture, SetRightNodeMethodTest) {
     Node new_right_child = Node(18);
-    node_.right_node_set(&new_right_child);
-    EXPECT_EQ(node_.right_node_(), &new_right_child);
-    EXPECT_EQ(node_.right_node_()->key_(), 18);
+    node_.set_right_node(&new_right_child);
+    EXPECT_EQ(node_.get_right_node(), &new_right_child);
+    EXPECT_EQ(node_.get_right_node()->get_key(), 18);
 }
 
-// parent_node_set() 메서드 테스트
-TEST_F(NodeTestFixture, ParentNodeSetMethodTest) {
+// get_parent_node() 메서드 테스트
+TEST_F(NodeTestFixture, SetParentNodeMethodTest) {
     Node new_parent = Node(25);
-    node_.parent_node_set(&new_parent);
-    EXPECT_EQ(node_.parent_node_(), &new_parent);
-    EXPECT_EQ(node_.parent_node_()->key_(), 25);
+    node_.set_parent_node(&new_parent);
+    EXPECT_EQ(node_.get_parent_node(), &new_parent);
+    EXPECT_EQ(node_.get_parent_node()->get_key(), 25);
 }
