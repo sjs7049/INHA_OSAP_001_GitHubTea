@@ -11,13 +11,13 @@ project. This software is provided "as is," without any warranty of any kind.
 *****************************************************************************************/
 
 #define private public
-#include "header/OSAP_001_GitHubTea_AVLTree.h"
+#include "header/OSAP_001_GitHubTea_AVLtree_AVLTree.h"
 #undef private
 #include <gtest/gtest.h>
 
 #include <iostream>
 
-#include "source/OSAP_001_GitHubTea_AVLTree.cpp"
+#include "source/OSAP_001_GitHubTea_AVLtree_AVLTree.cpp"
 using namespace testing;
 using namespace std;
 
