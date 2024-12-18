@@ -17,7 +17,7 @@
 
 class AVLTree {
 public:
-  // public method
+  // public method 
   AVLTree();                         // normal constructor 
   bool IsRoot(int);                  // AVL Tree에 매개변수 key값을 가진 노드가 루트 노드인지 판별하여 bool로 return
   bool IsExist(int);                 // AVL Tree에 매개변수 key값을 가진 노드가 존재하는지 판별하여 bool로 return

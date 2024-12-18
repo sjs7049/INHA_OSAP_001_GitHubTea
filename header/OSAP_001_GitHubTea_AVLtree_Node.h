@@ -15,7 +15,7 @@
 
 class Node {
 public:
-  // public method
+  // public method 
 
   // 생성자
   Node();        // 기본 생성자 
