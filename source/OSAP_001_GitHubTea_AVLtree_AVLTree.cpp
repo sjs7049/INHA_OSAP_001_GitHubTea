@@ -19,7 +19,9 @@ using namespace std;
 // public method
 
 // default constructor
-AVLTree::AVLTree() : root_{nullptr}, size_{0} {
+AVLTree::AVLTree() : 
+    root_{nullptr}, 
+    size_{0} {
 }
 
 // AVL Tree에 매개변수 key값을 가진 노드가 루트 노드인지 판별하여 bool으로 return 

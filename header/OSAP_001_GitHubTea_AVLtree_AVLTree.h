@@ -19,16 +19,16 @@ class AVLTree {
 public:
   // public method
   AVLTree();                         // normal constructor 
-  bool IsRoot(int key_);              // AVL Tree에 매개변수 key값을 가진 노드가 루트 노드인지 판별하여 bool로 return
-  bool IsExist(int key_);             // AVL Tree에 매개변수 key값을 가진 노드가 존재하는지 판별하여 bool로 return
+  bool IsRoot(int);                  // AVL Tree에 매개변수 key값을 가진 노드가 루트 노드인지 판별하여 bool로 return
+  bool IsExist(int);                 // AVL Tree에 매개변수 key값을 가진 노드가 존재하는지 판별하여 bool로 return
   bool Empty() const;                // AVL Tree가 비어있는지 판별하여 bool로 return
   int Size() const;                  // AVL Tree에 저장된 전체 노드 개수를 int로 return
   int Height() const;                // AVL Tree의 root Node의 높이를 int로 return
-  int Height(int x);                 // AVL Tree의 매개변수 key값을 가진 노드를 찾아 높이를 int로 return
-  int Depth(int key_);                // AVL Tree의 매개변수 key값을 가진 노드를 찾아 깊이를 int로 return
-  int Find(int key_);                 // AVL Tree의 매개변수 key값을 가진 노드를 찾아 깊이와 높이의 합을 출력
-  int MinDescendant(int x);          // AVL Tree의 매개변수 key값을 가진 노드의 서브트리에서 최솟값을 int로 return
-  int MaxDescendant(int x);          // AVL Tree의 매개변수 key값을 가진 노드의 서브트리에서 최댓값을 int로 return
+  int Height(int);                   // AVL Tree의 매개변수 key값을 가진 노드를 찾아 높이를 int로 return
+  int Depth(int);                    // AVL Tree의 매개변수 key값을 가진 노드를 찾아 깊이를 int로 return
+  int Find(int);                     // AVL Tree의 매개변수 key값을 가진 노드를 찾아 깊이와 높이의 합을 출력
+  int MinDescendant(int);            // AVL Tree의 매개변수 key값을 가진 노드의 서브트리에서 최솟값을 int로 return
+  int MaxDescendant(int);            // AVL Tree의 매개변수 key값을 가진 노드의 서브트리에서 최댓값을 int로 return
   int AncestorKeySum(int);           // AVL Tree의 매개변수 key값을 가진 노드를 찾아 부모노드부터 루트까지의 경로의 Node들의 keyW값의 합을 int로 return
   void Insert(int);                  // AVL Tree의 매개변수 key값을 가진 노드를 삽입
   int Rank(int);                     // AVL Tree의 매개변수 key값을 가진 노드를 찾아 순위를 return

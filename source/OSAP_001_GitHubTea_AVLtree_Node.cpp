@@ -1,4 +1,4 @@
-/****************************************************************************************
+ï»¿/****************************************************************************************
    File Name: OSAP_001_GitHubTea_Node.cpp
    Copyright (c) 2024 GitHubTea
 
@@ -12,9 +12,9 @@
 
 #include "header/OSAP_001_GitHubTea_AVLtree_Node.h"
 
-// public method 
+// public method  
 
-// ±âº» »ı¼ºÀÚ
+// ê¸°ë³¸ ìƒì„±ì
 Node::Node()
   : key_{0},
     height_{1},
@@ -24,7 +24,7 @@ Node::Node()
     right_{nullptr} {
 }
 
-// ¸Å°³º¯¼ö »ı¼ºÀÚ
+// ë§¤ê°œë³€ìˆ˜ ìƒì„±ì
 Node::Node(int key_)
   : key_{key_},
     height_{1},
