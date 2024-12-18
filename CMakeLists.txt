@@ -33,9 +33,9 @@ message(${CMAKE_HOME_DIRECTORY})
 
 add_executable(
   avl_tree_test
-  test/OSAP_001_GitHubTea_AVLtree_test.cpp
-  source/OSAP_001_GitHubTea_Node.cpp
-  # source/AVLTree.cpp
+  test/OSAP_001_GitHubTea_AVLtree_AVLTree_test.cpp
+  test/OSAP_001_GitHubTea_AVLtree_Node_test.cpp
+  source/OSAP_001_GitHubTea_AVLtree_Node.cpp
 )
 target_link_libraries(
   avl_tree_test
