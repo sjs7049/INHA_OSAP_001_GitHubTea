@@ -1,5 +1,5 @@
 /****************************************************************************************
-   File Name: OSAP_001_GitHubTea_AVLtree_AVLTree_test.cpp
+   File Name: OSAP_001_GitHubTea_AVLtree_AVLTree_test.cc
    Copyright (c) 2024 GitHubTea
 
    This software is distributed under the MIT License.
@@ -17,7 +17,7 @@ project. This software is provided "as is," without any warranty of any kind.
 
 #include <iostream>
 
-#include "source/OSAP_001_GitHubTea_AVLtree_AVLTree.cpp"
+#include "source/OSAP_001_GitHubTea_AVLtree_AVLTree.cc"
 using namespace testing;
 using namespace std;
 
