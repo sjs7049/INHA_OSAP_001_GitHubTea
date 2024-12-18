@@ -11,7 +11,7 @@
 *****************************************************************************************/
 
 #include "header/OSAP_001_GitHubTea_AVLtree_Node.h"
-#include <gtest/gtest.h>
+#include <gtest/gtest.h>S
 #include <iostream>
 using namespace testing;
 using namespace std;
@@ -19,8 +19,8 @@ using namespace std;
 // 기본 생성자에 대한 테스트
 TEST(Node_test, DefaultConstructorTest) {
     Node new_node = Node();
-    ASSERT_EQ(new_node.key_(), 0);
-    ASSERT_EQ(new_node.height_(), 1);
+    ASSERT_EQ(new_node.get_key(), 0);
+    ASSERT_EQ(new_node.get_height(), 1);
     ASSERT_EQ(new_node.get_subtree_size(), 1);
     ASSERT_EQ(new_node.get_left_node(), nullptr);
     ASSERT_EQ(new_node.get_right_node(), nullptr);
@@ -30,8 +30,8 @@ TEST(Node_test, DefaultConstructorTest) {
 // 파라미터 생성자에 대한 테스트
 TEST(Node_test, ParameterConstructorTest) {
     Node new_node = Node(3);
-    ASSERT_EQ(new_node.key_(), 3);
-    ASSERT_EQ(new_node.height_(), 1);
+    ASSERT_EQ(new_node.get_key(), 3);
+    ASSERT_EQ(new_node.get_height(), 1);
     ASSERT_EQ(new_node.get_subtree_size(), 1);
     ASSERT_EQ(new_node.get_left_node(), nullptr);
     ASSERT_EQ(new_node.get_right_node(), nullptr);
@@ -46,8 +46,8 @@ TEST(Node_test, DestructorTest) {
 
     // Node의 초기 상태를 검증
     EXPECT_EQ(dynamic_node->key_(), 42);
-    EXPECT_EQ(dynamic_node->get_left_node()->key_(), 21);
-    EXPECT_EQ(dynamic_node->get_right_node()->key_(), 84);
+    EXPECT_EQ(dynamic_node->get_left_node()->get_key(), 21);
+    EXPECT_EQ(dynamic_node->get_right_node()->get_key(), 84);
 
     // 자식 노드를 먼저 삭제한 후 부모 노드 삭제
     delete dynamic_node->get_left_node(); // 왼쪽 자식 노드 삭제
@@ -95,12 +95,12 @@ void NodeTestFixture::TearDown() {
 
 // get_key() 메서드 테스트
 TEST_F(NodeTestFixture, GetKeyMethodTest) {
-    EXPECT_EQ(node_.key_(), 10);
+    EXPECT_EQ(node_.get_key(), 10);
 }
 
 // get_height() 메서드 테스트
 TEST_F(NodeTestFixture, GetHeightMethodTest) {
-    EXPECT_EQ(node_.height_(), 1);
+    EXPECT_EQ(node_.get_height(), 1);
 }
 
 // get_subtree_size() 메서드 테스트
@@ -111,13 +111,13 @@ TEST_F(NodeTestFixture, GetSubtreeSizeMethodTest) {
 // get_left_node() 메서드 테스트
 TEST_F(NodeTestFixture, GetLeftNodeMethodTest) {
     EXPECT_EQ(node_.get_left_node(), &left_child_);
-    EXPECT_EQ(left_child_.key_(), 5);
+    EXPECT_EQ(left_child_.get_key(), 5);
 }
 
 // get_right_node() 메서드 테스트
 TEST_F(NodeTestFixture, GetRightNodeMethodTest) {
     EXPECT_EQ(node_.get_right_node(), &right_child_);
-    EXPECT_EQ(right_child_.key_(), 15);
+    EXPECT_EQ(right_child_.get_key(), 15);
 }
 
 // get_parent_node() 메서드 테스트
@@ -129,13 +129,13 @@ TEST_F(NodeTestFixture, GetParentNodeMethodTest) {
 // set_key() 메서드 테스트
 TEST_F(NodeTestFixture, SetKeyMethodTest) {
     node_.set_key(20);
-    EXPECT_EQ(node_.key_(), 20);
+    EXPECT_EQ(node_.get_key(), 20);
 }
 
 // set_height() 메서드 테스트
 TEST_F(NodeTestFixture, SetHeightMethodTest) {
     node_.set_height(3);
-    EXPECT_EQ(node_.height_(), 3);
+    EXPECT_EQ(node_.get_height(), 3);
 }
 
 // set_subtree_size() 메서드 테스트
@@ -149,7 +149,7 @@ TEST_F(NodeTestFixture, SetLeftNodeMethodTest) {
     Node new_left_child = Node(8);
     node_.set_left_node(&new_left_child);
     EXPECT_EQ(node_.get_left_node(), &new_left_child);
-    EXPECT_EQ(node_.get_left_node()->key_(), 8);
+    EXPECT_EQ(node_.get_left_node()->get_key(), 8);
 }
 
 // get_right_node() 메서드 테스트
@@ -157,7 +157,7 @@ TEST_F(NodeTestFixture, SetRightNodeMethodTest) {
     Node new_right_child = Node(18);
     node_.set_right_node(&new_right_child);
     EXPECT_EQ(node_.get_right_node(), &new_right_child);
-    EXPECT_EQ(node_.get_right_node()->key_(), 18);
+    EXPECT_EQ(node_.get_right_node()->get_key(), 18);
 }
 
 // get_parent_node() 메서드 테스트
@@ -165,5 +165,5 @@ TEST_F(NodeTestFixture, SetParentNodeMethodTest) {
     Node new_parent = Node(25);
     node_.set_parent_node(&new_parent);
     EXPECT_EQ(node_.get_parent_node(), &new_parent);
-    EXPECT_EQ(node_.get_parent_node()->key_(), 25);
+    EXPECT_EQ(node_.get_parent_node()->get_key(), 25);
 }

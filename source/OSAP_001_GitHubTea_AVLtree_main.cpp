@@ -77,7 +77,7 @@ int main() {
         cin >> x;
 
         int depth_height_sum = avl.Depth(x) + avl.Height(x);
-        int ancestor_key_sum = avl.Ancestor(x);
+        int ancestor_key_sum = avl.AncestorKeySum(x);
 
         if (avl.isExist(x) && avl.isRoot(x)) {        // 루트 노드일 경우
           cout << depth_height_sum << " " << "0\n";   // 깊이와 높이의 합 (공백) 0
