@@ -45,7 +45,7 @@ TEST(Node_test, DestructorTest) {
     dynamic_node->set_right_node(new Node(84)); // 오른쪽 자식 노드 설정
 
     // Node의 초기 상태를 검증
-    EXPECT_EQ(dynamic_node->key_(), 42);
+    EXPECT_EQ(dynamic_node->get_key(), 42);
     EXPECT_EQ(dynamic_node->get_left_node()->get_key(), 21);
     EXPECT_EQ(dynamic_node->get_right_node()->get_key(), 84);
 

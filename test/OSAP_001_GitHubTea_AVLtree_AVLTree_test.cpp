@@ -207,10 +207,10 @@ TEST_F(AVLTreeTestFixture, LeftLeftRotationMethodTest) {
   EXPECT_EQ(new_parent->key_, 1); // 회전 후 부모 노드가 변경되어야 함
 }
 
-// RIghtRightRotation() 함수에 대한 test 수행
-TEST_F(AVLTreeTestFixture, RIghtRightRotationMethodTest) {
+// RihtRightRotation() 함수에 대한 test 수행
+TEST_F(AVLTreeTestFixture, RightRightRotationMethodTest) {
   Node* parent = avl_tree_.Search(avl_tree_.root_, 234191);
-  Node* new_parent = avl_tree_.RIghtRightRotation(parent); // 오른쪽-오른쪽 회전
+  Node* new_parent = avl_tree_.RightRightRotation(parent); // 오른쪽-오른쪽 회전
   EXPECT_EQ(new_parent->key_, 300000); // 회전 후 부모 노드가 변경되어야 함
 }
 
@@ -233,12 +233,12 @@ TEST_F(AVLTreeTestFixture, BalanceMethodTest) {
 
 // Search() 함수에 대한 test 수행
 TEST_F(AVLTreeTestFixture, SearchMethodTest) {
-  Node* found_Node = avl_tree_.search(avl_tree_.root_, 50012);
+  Node* found_Node = avl_tree_.Search(avl_tree_.root_, 50012);
   EXPECT_EQ(found_Node->key_,
             50012); // 찾은 노드가 올바른 key를 가지고 있어야 함
 
   Node* not_found_Node =
-      avl_tree_.search(avl_tree_.root_, 999999); // 존재하지 않는 key
+      avl_tree_.Search(avl_tree_.root_, 999999); // 존재하지 않는 key
   EXPECT_EQ(not_found_Node,
             nullptr); // 찾을 수 없는 노드는 nullptr을 반환해야 함
 }
@@ -257,7 +257,7 @@ TEST_F(AVLTreeTestFixture, FindMaxMethodTest) {
 
 // IsRoot() 함수에 대한 test 수행
 TEST_F(AVLTreeTestFixture, IsRootMethodTest) {
-  EXPECT_EQ(avl_tree_.root->key_, 100241);
+  EXPECT_EQ(avl_tree_.root_->key_, 100241);
 }
 
 // IsExist() 함수에 대한 test 수행
