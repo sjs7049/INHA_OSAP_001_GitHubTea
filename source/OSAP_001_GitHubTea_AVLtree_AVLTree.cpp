@@ -25,21 +25,21 @@ AVLTree::AVLTree() :
 }
 
 // AVL Tree에 매개변수 key값을 가진 노드가 루트 노드인지 판별하여 bool으로 return 
-bool AVLTree::IsRoot(int key_) {
+bool AVLTree::IsRoot(int key) {
   /*
     curNode값이 비어있지 않고, curNode의 부모노드가 비어있다면 root이기에
     만족한다면 true, 아니라면 false return
   */
-  Node* curNode = Search(root_, key_);
+  Node* curNode = Search(root_, key);
   return (curNode != nullptr && curNode->get_parent_node() == nullptr);
 }
 
 // AVL Tree에 매개변수 key값을 가진 노드가 존재하는지 판별하여 bool로 return
-bool AVLTree::IsExist(int key_) {
+bool AVLTree::IsExist(int key) {
   /*
     curNode값이 비어있지 않다면 true, 아니라면 false return.
   */
-  Node* curNode = Search(root_, key_);
+  Node* curNode = Search(root_, key);
   return (curNode != nullptr ? 1 : 0);
 }
 
@@ -66,27 +66,27 @@ int AVLTree::Height() const {
     root의 높이를 return.
     단 nullptr일 때, 즉 트리가 비어있을 땐 -1을 return
   */
-  return (root_ ? root_->height_() : -1);
+  return (root_ ? root_->get_height() : -1);
 }
 
 // AVL Tree의 매개변수 key값을 가진 노드를 찾아 높이를 int로 return
-int AVLTree::Height(int x) {
+int AVLTree::Height(int key) {
   /*
     curNode의 값을 return.
     단 nullptr일 때, 즉 트리에 존재하지 않을 땐 0을 return
   */
-  Node* curNode = Search(root_, x);
-  return (curNode ? curNode->height_() : 0);
+  Node* curNode = Search(root_, key);
+  return (curNode ? curNode->get_height() : 0);
 }
 
 // AVL Tree의 매개변수 key값을 가진 노드를 찾아 깊이를 int로 return
-int AVLTree::Depth(int key_) {
+int AVLTree::Depth(int key) {
   /*
     depth++을 실행 후 curNode를 curNode의 부모노드로 설정을
     curNode가 root가 될 때까지 수행.
     while문이 종료되면 depth를 return
   */
-  Node* curNode = Search(root_, key_);
+  Node* curNode = Search(root_, key);
   if (curNode == nullptr) {
     // curNode가 nullptr일 때, 즉 트리에 존재하지 않을 때 0을 return
     return 0;
@@ -101,49 +101,49 @@ int AVLTree::Depth(int key_) {
 }
 
 // AVL Tree의 매개변수 key값을 가진 노드를 찾아 깊이와 높이의 합을 출력
-int AVLTree::Find(int key_) {
+int AVLTree::Find(int key) {
   /*
     curNode의 깊이와 높이의 합을 더하여 return.
   */
-  Node* curNode = Search(root_, key_);
+  Node* curNode = Search(root_, key);
   if (curNode == nullptr) {
     // curNode가 nullptr일 때, 즉 트리에 존재하지 않을 때 0을 return
     return 0;
   }
 
-  int nodeDepth = Depth(key_);
-  int nodeHeight = Height(curNode->key_());
+  int nodeDepth = Depth(key);
+  int nodeHeight = Height(curNode->get_key());
   return (nodeDepth + nodeHeight);
 }
 
 // AVL Tree의 매개변수 key값을 가진 노드의 서브트리에서 최솟값을 int로 return
-int AVLTree::MinDescendant(int x) {
+int AVLTree::MinDescendant(int key) {
   /*
     FindMin()을 통해 curNode의 서브트리에서 최솟값을 return
     단 nullptr일 때, 즉 트리에 존재하지 않을 때 0을 return
   */
-  Node* curNode = Search(root_, x);
+  Node* curNode = Search(root_, key);
   return curNode ? FindMin(curNode) : 0;
 }
 
-int AVLTree::MaxDescendant(int x) {
+int AVLTree::MaxDescendant(int key) {
   /*
     FindMax()을 통해 curNode의 서브트리에서 최댓값을 return
     단 nullptr일 때, 즉 트리에 존재하지 않을 때 0을 return
   */
-  Node* curNode = Search(root_, x);
+  Node* curNode = Search(root_, key);
   return curNode ? FindMax(curNode) : 0;
 }
 
 // AVL Tree의 매개변수 key값을 가진 노드를 찾아 부모노드부터 루트까지의 경로의 Node들의 key값의 합을 int로 return
-int AVLTree::AncestorKeySum(int key_) {
+int AVLTree::AncestorKeySum(int key) {
   /*
     parNode를 curNode의 부모노드로 설정
     parNode의 key를 keySum에 더한 후
     parNode를 parNode의 부모노드로 설정을 parNode가 root가 될 때까지 수행.
     while문이 종료되면 keySum을 return
   */
-  Node* curNode = Search(root_, key_);
+  Node* curNode = Search(root_, key);
   if (curNode == nullptr) {
     // curNode가 nullptr일 때, 즉 트리에 존재하지 않을 때 0을 return
     return 0;
@@ -152,20 +152,20 @@ int AVLTree::AncestorKeySum(int key_) {
   int keySum = 0;
   Node* temp = curNode->get_parent_node();
   while (temp != nullptr) {
-    keySum += temp->key_();
+    keySum += temp->get_key();
     temp = temp->get_parent_node();
   }
   return keySum;
 }
 
 // AVL Tree의 매개변수 key값을 가진 노드를 삽입
-void AVLTree::Insert(int key_) {
-  if (Search(root_, key_) != nullptr) {
+void AVLTree::Insert(int key) {
+  if (Search(root_, key) != nullptr) {
     // curNode가 nullptr일 때, 즉 트리에 존재하지 않을 때 0을 return
     return;
   }
 
-  Node* newNode = new Node(key_);
+  Node* newNode = new Node(key);
   size_++;
   if (root_ == nullptr) {
     // 트리가 비었다면 newNode를 root 노드로 설정하고 return.
@@ -186,7 +186,7 @@ void AVLTree::Insert(int key_) {
   */
   while (curNode != nullptr) {
     parNode = curNode;
-    if (curNode->key_() < key_) {
+    if (curNode->get_key() < key) {
       curNode = curNode->get_right_node();
     } else {
       curNode = curNode->get_left_node();
@@ -200,7 +200,7 @@ void AVLTree::Insert(int key_) {
     아니라면 왼쪽 자식 노드로 설정.
   */
   newNode->set_parent_node(parNode);
-  if (parNode->key_() < key_) {
+  if (parNode->get_key() < key) {
     parNode->set_right_node(newNode);
   } else {
     parNode->set_left_node(newNode);
@@ -223,8 +223,8 @@ void AVLTree::Insert(int key_) {
 }
 
 // AVL Tree의 매개변수 key값을 가진 노드를 찾아 순위를 return
-int AVLTree::Rank(int key_) {
-  Node* curNode = Search(root_, key_);
+int AVLTree::Rank(int key) {
+  Node* curNode = Search(root_, key);
   if (curNode == nullptr) {
     // curNode가 nullptr일 때, 즉 트리에 존재하지 않을 때 0을 return
     return 0;
@@ -240,9 +240,9 @@ int AVLTree::Rank(int key_) {
   int rank = 1;
   Node* temp = root_;
   while (temp != nullptr) {
-    if (key_ < temp->key_()) {
+    if (key < temp->get_key()) {
       temp = temp->get_left_node();
-    } else if (key_ > temp->key_()) {
+    } else if (key > temp->get_key()) {
       rank +=
           (temp->get_left_node() ? temp->get_left_node()->get_subtree_size() + 1
                                  : 1);
@@ -257,8 +257,8 @@ int AVLTree::Rank(int key_) {
 }
 
 // AVL Tree의 매개변수 key값을 가진 노드를 찾아 깊이와 높이의 합을 출력하고 해당 노드를 삭제
-void AVLTree::Erase(int key_) {
-  Node* delNode = Search(root_, key_);
+void AVLTree::Erase(int key) {
+  Node* delNode = Search(root_, key);
   if (delNode == nullptr) {
     // curNode가 nullptr일 때, 즉 트리에 존재하지 않을 때 0을 return
     return;
@@ -290,7 +290,7 @@ void AVLTree::Erase(int key_) {
     while (childNode->get_left_node() != nullptr) {    // 두 자식 모두 있는 경우
       childNode = childNode->get_left_node();
     }
-    delNode->set_key(childNode->key_());
+    delNode->set_key(childNode->get_key());
     delNode = childNode;
     parNode = delNode->get_parent_node();
     childNode = delNode->get_right_node();
@@ -337,50 +337,50 @@ void AVLTree::Erase(int key_) {
 // private method
 
 // 매개변수 curNode의 두 자식 노드의 차를 return
-int AVLTree::Difference(Node* temp) {
+int AVLTree::Difference(Node* curNode) {
   /*
     curNode의 왼쪽 자식 노드 - 오른쪽 자식 노드를 return.
     만약 각 자식 노드가 존재하지 않는다면 0으로 설정
   */
   int leftHeight =
-      temp->get_left_node() ? temp->get_left_node()->height_() : 0;
+      curNode->get_left_node() ? curNode->get_left_node()->get_height() : 0;
   int rightHeight =
-      temp->get_right_node() ? temp->get_right_node()->height_() : 0;
+      curNode->get_right_node() ? curNode->get_right_node()->get_height() : 0;
   return (leftHeight - rightHeight);
 }
 
 // 매개변수 curNode의 높이를 업데이트함
-void AVLTree::UpdateHeight(Node* n) {
+void AVLTree::UpdateHeight(Node* curNode) {
   /*
     curNode의 두 자식 노드를 비교하여 더 큰 값의 높이에 1을 더함.
     이때 각 자식 노드가 존재하지 않는다면 0으로 설정
   */
-  if (n != nullptr) {
+  if (curNode != nullptr) {
     int leftHeight =
-        (n->get_left_node()) ? n->get_left_node()->height_() : 0;
+        (curNode->get_left_node()) ? curNode->get_left_node()->get_height() : 0;
     int rightHeight =
-        (n->get_right_node()) ? n->get_right_node()->height_() : 0;
-    n->set_height(std::max(leftHeight, rightHeight) + 1);
+        (curNode->get_right_node()) ? curNode->get_right_node()->get_height() : 0;
+    curNode->set_height(std::max(leftHeight, rightHeight) + 1);
   }
 }
 
 // 매개변수 curNode의 서브트리 사이즈를 업데이트함.
-void AVLTree::UpdateSubtreeSize(Node* n) {
+void AVLTree::UpdateSubtreeSize(Node* curNode) {
   /*
     curNode의 두 자식 노드를 비교하여 더 큰 값의 높이에 1을 더함
     이때 각 자식 노드가 존재하지 않는다면 0으로 설정
   */
-  if (n != nullptr) {
+  if (curNode != nullptr) {
     int leftSize =
-        (n->get_left_node()) ? n->get_left_node()->get_subtree_size() : 0;
+        (curNode->get_left_node()) ? curNode->get_left_node()->get_subtree_size() : 0;
     int rightSize =
-        (n->get_right_node()) ? n->get_right_node()->get_subtree_size() : 0;
-    n->set_subtree_size(leftSize + rightSize + 1);
+        (curNode->get_right_node()) ? curNode->get_right_node()->get_subtree_size() : 0;
+    curNode->set_subtree_size(leftSize + rightSize + 1);
   }
 }
 
 // Left-Left Rotation 수행 Node*로 return
-Node* AVLTree::LeftLeftRotation(Node* parent) {
+Node* AVLTree::LeftLeftRotation(Node* parNode) {
   /*
     LL 회전(Left-Left Rotation) 수행.
     - 불균형이 왼쪽 자식의 왼쪽 서브트리에서 발생했을 때 해결하는 회전 방식.
@@ -392,35 +392,35 @@ Node* AVLTree::LeftLeftRotation(Node* parent) {
     curNode의 오른쪽 자식 노드를 parNode로 설정 후
     curNode의 부모 노드를 parNode의 부모 노드로 갱신.
   */
-  Node* temp = parent->get_left_node();
-  parent->set_left_node(temp->get_right_node());
-  if (temp->get_right_node() != nullptr)
-    temp->get_right_node()->set_parent_node(parent);
-  temp->set_right_node(parent);
-  temp->set_parent_node(parent->get_parent_node());
+  Node* curNode = parNode->get_left_node();
+  parNode->set_left_node(curNode->get_right_node());
+  if (curNode->get_right_node() != nullptr)
+    curNode->get_right_node()->set_parent_node(parNode);
+  curNode->set_right_node(parNode);
+  curNode->set_parent_node(parNode->get_parent_node());
 
   // parNode의 부모 노드가 존재한다면, 부모 노드의 왼쪽 또는 오른쪽 자식 노드를
   // curNode로 설정.
-  if (parent->get_parent_node()) {
-    if (parent->get_parent_node()->get_left_node() == parent) {
-      parent->get_parent_node()->set_left_node(temp);
+  if (parNode->get_parent_node()) {
+    if (parNode->get_parent_node()->get_left_node() == parNode) {
+      parNode->get_parent_node()->set_left_node(curNode);
     } else {
-      parent->get_parent_node()->set_right_node(temp);
+      parNode->get_parent_node()->set_right_node(curNode);
     }
   }
-  parent->set_parent_node(temp);
+  parNode->set_parent_node(curNode);
 
   // 회전이 끝난 후 parNode와 curNode의 높이와 서브트리 사이즈 갱신
-  UpdateHeight(parent);
-  UpdateHeight(temp);
-  UpdateSubtreeSize(parent);
-  UpdateSubtreeSize(temp);
+  UpdateHeight(parNode);
+  UpdateHeight(curNode);
+  UpdateSubtreeSize(parNode);
+  UpdateSubtreeSize(curNode);
 
-  return temp;
+  return curNode;
 }
 
 // Right-Right Rotation 수행 Node*로 return
-Node* AVLTree::RightRightRotation(Node* parent) {
+Node* AVLTree::RightRightRotation(Node* parNode) {
   /*
     RR 회전 (Right-Right Rotation) 수행.
     - 불균형이 오른쪽 자식의 오른쪽 서브트리에서 발생했을 때 해결하는 회전 방식.
@@ -432,35 +432,35 @@ Node* AVLTree::RightRightRotation(Node* parent) {
     curNode의 왼쪽 자식 노드를 parNode로 설정 후
     curNode의 부모 노드를 parNode의 부모 노드로 갱신.
   */
-  Node* temp = parent->get_right_node();
-  parent->set_right_node(temp->get_left_node());
-  if (temp->get_left_node() != nullptr)
-    temp->get_left_node()->set_parent_node(parent);
-  temp->set_left_node(parent);
-  temp->set_parent_node(parent->get_parent_node());
+  Node* curNode = parNode->get_right_node();
+  parNode->set_right_node(curNode->get_left_node());
+  if (curNode->get_left_node() != nullptr)
+    curNode->get_left_node()->set_parent_node(parNode);
+  curNode->set_left_node(parNode);
+  curNode->set_parent_node(parNode->get_parent_node());
 
   // parNode의 부모 노드가 존재한다면, 부모 노드의 왼쪽 또는 오른쪽 자식 노드를
   // curNode로 설정.
-  if (parent->get_parent_node()) {
-    if (parent->get_parent_node()->get_left_node() == parent) {
-      parent->get_parent_node()->set_left_node(temp);
+  if (parNode->get_parent_node()) {
+    if (parNode->get_parent_node()->get_left_node() == parNode) {
+      parNode->get_parent_node()->set_left_node(curNode);
     } else {
-      parent->get_parent_node()->set_right_node(temp);
+      parNode->get_parent_node()->set_right_node(curNode);
     }
   }
-  parent->set_parent_node(temp);
+  parNode->set_parent_node(curNode);
 
   // 회전이 끝난 후 parNode와 curNode의 높이와 서브트리 사이즈 갱신.
-  UpdateHeight(parent);
-  UpdateHeight(temp);
-  UpdateSubtreeSize(parent);
-  UpdateSubtreeSize(temp);
+  UpdateHeight(parNode);
+  UpdateHeight(curNode);
+  UpdateSubtreeSize(parNode);
+  UpdateSubtreeSize(curNode);
 
-  return temp;
+  return curNode;
 }
 
 // Left-Right Rotation 수행 Node*로 return
-Node* AVLTree::LeftRightRotation(Node* parent) {
+Node* AVLTree::LeftRightRotation(Node* parNode) {
   /*
     LR 회전(Left-Right Rotation) 수행.
     - 불균형이 왼쪽 자식의 오른쪽 서브트리에서 발생했을 때 해결하는 회전 방식.
@@ -469,12 +469,12 @@ Node* AVLTree::LeftRightRotation(Node* parent) {
     1. 왼쪽 자식 노드를 기준으로 RR 회전 수행 (오른쪽 회전).
     2. 이후 LL 회전을 통해 균형을 맞춤.
   */
-  parent->set_left_node(RightRightRotation(parent->get_left_node()));
-  return LeftLeftRotation(parent);
+  parNode->set_left_node(RightRightRotation(parNode->get_left_node()));
+  return LeftLeftRotation(parNode);
 }
 
 // Right-Left Rotation 수행 후 Node*로 return
-Node* AVLTree::RightLeftRotation(Node* parent) {
+Node* AVLTree::RightLeftRotation(Node* parNode) {
   /*
     RL 회전 (Right-Left Rotation) 수행.
     - 불균형이 오른쪽 자식의 왼쪽 서브트리에서 발생했을 때 해결하는 회전 방식.
@@ -483,8 +483,8 @@ Node* AVLTree::RightLeftRotation(Node* parent) {
     1. 오른쪽 자식 노드를 기준으로 LL 회전 수행 (왼쪽 회전).
     2. 이후 RR 회전을 통해 균형을 맞춤.
   */
-  parent->set_right_node(LeftLeftRotation(parent->get_right_node()));
-  return RightRightRotation(parent);
+  parNode->set_right_node(LeftLeftRotation(parNode->get_right_node()));
+  return RightRightRotation(parNode);
 }
 
 // 매개변수 curNode에 알맞은 회전을 수행 후 Node*로 return
@@ -516,14 +516,14 @@ Node* AVLTree::Balance(Node* curNode) {
 }
 
 // 매개변수 curNode를 root로 하는 AVL Tree에서 key값을 가진 노드를 찾아 Node*로 return
-Node* AVLTree::Search(Node* curNode, int key_) {
+Node* AVLTree::Search(Node* curNode, int key) {
   /*
     curNode가 비었거나 curNode의 key값이 매개변수의 key값과 같을 때까지
     while문을 수행함. 이때 매개변수의 key값이 curNode의 key값보다 작을 땐
     curNode를 curNode의 왼쪽 자식 노드로, 아니라면 오른쪽 자식 노드로 설정
   */
-  while (curNode != nullptr && curNode->key_() != key_) {
-    if (key_ < curNode->key_()) {
+  while (curNode != nullptr && curNode->get_key() != key) {
+    if (key < curNode->get_key()) {
       curNode = curNode->get_left_node();
     } else {
       curNode = curNode->get_right_node();
@@ -541,7 +541,7 @@ int AVLTree::FindMin(Node* curNode) {
   while (curNode->get_left_node() != nullptr) {
     curNode = curNode->get_left_node();
   }
-  return curNode->key_();
+  return curNode->get_key();
 }
 
 int AVLTree::FindMax(Node* curNode) {
@@ -552,5 +552,5 @@ int AVLTree::FindMax(Node* curNode) {
   while (curNode->get_right_node() != nullptr) {
     curNode = curNode->get_right_node();
   }
-  return curNode->key_();
+  return curNode->get_key();
 }
