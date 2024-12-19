@@ -1,5 +1,5 @@
 /****************************************************************************************
-   File Name: OSAP_001_GitHubTea_AVLtree_test.cpp
+   File Name: OSAP_001_GitHubTea_AVLtree_AVLTree_test.cc
    Copyright (c) 2024 GitHubTea
 
    This software is distributed under the MIT License.
@@ -17,7 +17,7 @@ project. This software is provided "as is," without any warranty of any kind.
 
 #include <iostream>
 
-#include "source/OSAP_001_GitHubTea_AVLtree_AVLTree.cpp"
+#include "source/OSAP_001_GitHubTea_AVLtree_AVLTree.cc"
 using namespace testing;
 using namespace std;
 
@@ -204,14 +204,15 @@ TEST_F(AVLTreeTestFixture, UpdateSubtreeSizeMethodTest) {
 TEST_F(AVLTreeTestFixture, LeftLeftRotationMethodTest) {
   Node* parent = avl_tree_.Search(avl_tree_.root_, 50012);
   Node* new_parent = avl_tree_.LeftLeftRotation(parent); // 왼쪽-왼쪽 회전
-  EXPECT_EQ(new_parent->key_, 1); // 회전 후 부모 노드가 변경되어야 함
+  EXPECT_EQ(new_parent->get_key(), 1); // 회전 후 부모 노드가 변경되어야 함
 }
 
 // RihtRightRotation() 함수에 대한 test 수행
 TEST_F(AVLTreeTestFixture, RightRightRotationMethodTest) {
   Node* parent = avl_tree_.Search(avl_tree_.root_, 234191);
   Node* new_parent = avl_tree_.RightRightRotation(parent); // 오른쪽-오른쪽 회전
-  EXPECT_EQ(new_parent->key_, 300000); // 회전 후 부모 노드가 변경되어야 함
+  EXPECT_EQ(new_parent->get_key(),
+            300000); // 회전 후 부모 노드가 변경되어야 함
 }
 
 TEST_F(AVLTreeTestFixture, BalanceMethodTest) {
@@ -234,7 +235,7 @@ TEST_F(AVLTreeTestFixture, BalanceMethodTest) {
 // Search() 함수에 대한 test 수행
 TEST_F(AVLTreeTestFixture, SearchMethodTest) {
   Node* found_Node = avl_tree_.Search(avl_tree_.root_, 50012);
-  EXPECT_EQ(found_Node->key_,
+  EXPECT_EQ(found_Node->get_key(),
             50012); // 찾은 노드가 올바른 key를 가지고 있어야 함
 
   Node* not_found_Node =
@@ -257,7 +258,7 @@ TEST_F(AVLTreeTestFixture, FindMaxMethodTest) {
 
 // IsRoot() 함수에 대한 test 수행
 TEST_F(AVLTreeTestFixture, IsRootMethodTest) {
-  EXPECT_EQ(avl_tree_.root_->key_, 100241);
+  EXPECT_EQ(avl_tree_.root_->get_key(), 100241);
 }
 
 // IsExist() 함수에 대한 test 수행
